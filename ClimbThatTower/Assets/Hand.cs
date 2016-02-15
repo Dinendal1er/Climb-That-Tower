@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hand : AItem {
-
-    public override void Effect()
+public abstract class Hand : AItem
+{
+    public Hand()
     {
-
+        this.type = eItemType.HAND;
     }
 }

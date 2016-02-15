@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Weapon : AItem { 
-
-	public override void Effect()
+public abstract class Weapon : AItem
+{
+    public Weapon()
     {
-
+        this.type = eItemType.WEAPON;
     }
 }

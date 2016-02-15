@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Consumable : AItem {
-
-    public override void Effect()
+public abstract class Consumable : AItem
+{
+    public Consumable()
     {
-
+        this.type = eItemType.CONSUMABLE;
     }
 }

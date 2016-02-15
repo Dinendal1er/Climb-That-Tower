@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Foot : AItem {
-
-    public override void Effect()
+public abstract class Foot : AItem
+{
+    public Foot()
     {
-
+        this.type = eItemType.FOOT;
     }
 }

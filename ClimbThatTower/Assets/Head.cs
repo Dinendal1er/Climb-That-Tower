@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Head : AItem {
-
-    public override void Effect()
+public abstract class Head : AItem
+{
+    public Head()
     {
-
+        this.type = eItemType.HEAD;
     }
 }

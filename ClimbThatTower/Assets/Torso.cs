@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Torso : AItem {
-
-    public override void Effect()
+public abstract class Torso : AItem
+{
+    public Torso()
     {
-
+        this.type = eItemType.TORSO;
     }
 }

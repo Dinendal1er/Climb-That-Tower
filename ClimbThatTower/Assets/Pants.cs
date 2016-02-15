@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pants : AItem {
-
-    public override void Effect()
+public abstract class Pants : AItem
+{
+    public Pants()
     {
-
+        this.type = eItemType.PANTS;
     }
-
 }
