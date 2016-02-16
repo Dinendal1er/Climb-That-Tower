@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class AEntity {
-
+public abstract class AEntity
+{
     private string _name;
     private int _hp;
     private int _maxHp;
@@ -292,14 +292,4 @@ public abstract class AEntity {
             _resistance = value;
         }
     }
-
-
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 }

@@ -61,6 +61,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets\Plugins\LitJson.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Completed\Scripts\BoardManager.cs" />
@@ -72,12 +75,24 @@
     <Compile Include="Assets\Completed\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Completed\Scripts\Wall.cs" />
     <Compile Include="Assets\Entity\AEntity.cs" />
+    <Compile Include="Assets\Entity\Team.cs" />
+    <Compile Include="Assets\Entity\TestEntitry.cs" />
+    <Compile Include="Assets\Inventory\Item.cs" />
+    <Compile Include="Assets\Inventory\ItemDatabase.cs" />
     <Compile Include="Assets\Item\AItem.cs" />
+    <Compile Include="Assets\Item\Colussator.cs" />
     <Compile Include="Assets\Item\Consumable.cs" />
+    <Compile Include="Assets\Item\DoubleHanded.cs" />
     <Compile Include="Assets\Item\Foot.cs" />
     <Compile Include="Assets\Item\Hand.cs" />
     <Compile Include="Assets\Item\Head.cs" />
+    <Compile Include="Assets\Item\HealPot.cs" />
+    <Compile Include="Assets\Item\Inventory.cs" />
+    <Compile Include="Assets\Item\LeftHand.cs" />
+    <Compile Include="Assets\Item\OneHanded.cs" />
     <Compile Include="Assets\Item\Pants.cs" />
+    <Compile Include="Assets\Item\PeonSword.cs" />
+    <Compile Include="Assets\Item\RightHand.cs" />
     <Compile Include="Assets\Item\TestInventory.cs" />
     <Compile Include="Assets\Item\Torso.cs" />
     <Compile Include="Assets\Item\Weapon.cs" />
