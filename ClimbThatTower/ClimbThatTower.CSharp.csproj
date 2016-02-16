@@ -96,7 +96,6 @@
     <Compile Include="Assets\Item\TestInventory.cs" />
     <Compile Include="Assets\Item\Torso.cs" />
     <Compile Include="Assets\Item\Weapon.cs" />
-    <Compile Include="Assets\Jobs\AJob.cs" />
     <Compile Include="Assets\Jobs\Mage.cs" />
     <Compile Include="Assets\Jobs\Thief.cs" />
     <Compile Include="Assets\Jobs\Warrior.cs" />
