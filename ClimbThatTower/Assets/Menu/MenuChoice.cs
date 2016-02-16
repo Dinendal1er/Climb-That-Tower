@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class MenuChoice
 {
-    public uint length;
-    public uint width;
+    public Rect rect;
     public string text;
+    public string description;
 }

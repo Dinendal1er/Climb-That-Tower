@@ -6,6 +6,8 @@ public class MenuUI : MonoBehaviour
 {
     private bool isShowing = false;
     public List<AItem> items = new List<AItem>();
+    private Rect infos = new Rect(4, 4, Screen.width - 8, 30);
+    private string infoText = "";
     public List<MenuChoice> menuChoices;
     public GUISkin skin;
 
@@ -29,13 +31,18 @@ public class MenuUI : MonoBehaviour
         GUI.skin = this.skin;
         if (this.isShowing)
         {
-            uint y = 0;
-
+            uint y = (uint)this.infos.height + 12;
+            this.infoText = "";
             for (int i = 0; i < this.menuChoices.Count; i++)
             {
-                GUI.Label(new Rect(0, y, this.menuChoices[i].width, this.menuChoices[i].length), this.menuChoices[i].text, skin.GetStyle("Inventory Windows"));
-                y += this.menuChoices[i].length + 2;
+                this.menuChoices[i].rect.x = 25;
+                this.menuChoices[i].rect.y = y;
+                GUI.Label(this.menuChoices[i].rect, this.menuChoices[i].text, skin.GetStyle("Inventory Windows"));
+                if (this.menuChoices[i].rect.Contains(Event.current.mousePosition))
+                    this.infoText = this.menuChoices[i].description;
+                y += (uint)this.menuChoices[i].rect.height + 10;
             }
+            GUI.Label(this.infos, this.infoText, skin.GetStyle("Inventory Windows"));
         }
     }
 }
