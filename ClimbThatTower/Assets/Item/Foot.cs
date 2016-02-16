@@ -5,6 +5,6 @@ public abstract class Foot : AItem
 {
     public Foot()
     {
-        this.Type = eItemType.FOOT;
+        this.type = eItemType.FOOT;
     }
 }

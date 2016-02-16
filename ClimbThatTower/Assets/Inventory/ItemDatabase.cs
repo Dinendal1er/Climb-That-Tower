@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using LitJson;
 using System.IO;
 
-public class ItemDatabase : MonoBehaviour {
+public class ItemDatabase : MonoBehaviour
+{
     private List<AItem> _database = new List<AItem>();
     private JsonData itemData;
 
     void Start()
     {
-        AItem item = new AItem(0, "Ball", 5);
+        AItem item = new HealPot();
         _database.Add(item);
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
     }
@@ -24,13 +25,11 @@ public class ItemDatabase : MonoBehaviour {
 
     public AItem FetchItemByID(int id)
     {
-        foreach(Item x in this._database)
+        foreach(AItem x in this._database)
         {
             if (x.Id == id)
                 return x;
         }
         return null;
     }
-}
-
 }

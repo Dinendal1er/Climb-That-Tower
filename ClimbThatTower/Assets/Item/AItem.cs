@@ -4,7 +4,7 @@ using System.Collections;
 public enum eItemType { WEAPON, HEAD, TORSO, PANTS, FOOT, HAND, CONSUMABLE, ONEHANDED, DOUBLEHANDED, RIGHTHAND, LEFTHAND}
 
 
-public abstract class AItem : MonoBehaviour
+public abstract class AItem
 {
     private Sprite[] _st;
     private Sprite   _s;

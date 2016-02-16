@@ -4,9 +4,9 @@ using System;
 
 public class PeonSword : RightHand
 {
-    void Start()
+    public PeonSword()
     {
-        this.name = "PeonSword";
+        this.Name = "PeonSword";
         this.talent = 3;
         this.init();
         foreach (Sprite a in this.st)
@@ -14,12 +14,8 @@ public class PeonSword : RightHand
                 this.s = a;
     }
 
-    public PeonSword()
-    {
-
-    }
-
     public override void Effect()
     {
+        throw new NotImplementedException();
     }
 }

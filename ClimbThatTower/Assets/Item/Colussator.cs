@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Colussator : DoubleHanded {
-
-
-    void Start()
+public class Colussator : DoubleHanded
+{
+    public Colussator()
     {
-        this.name = "Colussator";
+        this.Name = "Colussator";
         this.talent = 99;
         this.init();
         foreach (Sprite a in this.st)
@@ -14,16 +14,8 @@ public class Colussator : DoubleHanded {
                 this.s = a;
     }
 
-    public Colussator()
-    {
-    }
-
     public override void Effect()
     {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        throw new NotImplementedException();
     }
 }

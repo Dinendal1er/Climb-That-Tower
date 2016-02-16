@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class HealPot : Consumable {
-
-    void Start()
+public class HealPot : Consumable
+{
+    public HealPot()
     {
-        this.name = "HealPot";
+        this.Name = "HealPot";
         this.talent = 3;
         this.init();
         foreach (Sprite a in this.st)
@@ -13,11 +14,8 @@ public class HealPot : Consumable {
                 this.s = a;
     }
 
-    public HealPot()
-    {
-    }
-
     public override void Effect()
     {
+        throw new NotImplementedException();
     }
 }
