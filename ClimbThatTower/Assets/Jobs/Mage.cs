@@ -2,29 +2,30 @@
 using System.Collections;
 using System;
 
-public class Mage : AJob {
+public class Mage : AEntity
+{
 
 	// Use this for initialization
 	void Start () {
-        this._name = "Mage";
-        this._skill.Add(new Fireball());
+        this.Job = "Mage";
+        this._skills.Add(new Fireball());
     }
 
-    public override void levelUp(AEntity entity)
+    public override void levelUp()
     {
-        entity.MaxHp += 2 + (entity.Lvl * 2);
-        entity.Intel += 3;
-        entity.Luck += 1;
-        entity.MagicResistance += 3;
-        entity.MaxMp += entity.Lvl * 2;
-        entity.Strenght += 0;
-        entity.Stamina += 0;
-        entity.Speed += 0;
-        entity.Precision += 0;
-        entity.Agility += 1;
-        entity.Resistance += 1;
+        this.MaxHp += 2 + (this.Lvl * 2);
+        this.Intel += 3;
+        this.Luck += 1;
+        this.MagicResistance += 3;
+        this.MaxMp += this.Lvl * 2;
+        this.Strenght += 0;
+        this.Stamina += 0;
+        this.Speed += 0;
+        this.Precision += 0;
+        this.Agility += 1;
+        this.Resistance += 1;
 
-        entity.Lvl += 1;
+        this.Lvl += 1;
 }
 
     // Update is called once per frame

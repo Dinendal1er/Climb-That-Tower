@@ -29,9 +29,10 @@ public abstract class AEntity
     //TMP
     private string _equipment;
 
-    private AJob _job;
-    private List<ASkill> _perso_skill;
+    private string _job;
+    protected List<ASkill> _skills;
     private List<AState> _state;
+    abstract public void levelUp();
 
     public string Name
     {
@@ -290,6 +291,19 @@ public abstract class AEntity
         set
         {
             _resistance = value;
+        }
+    }
+
+    public string Job
+    {
+        get
+        {
+            return _job;
+        }
+
+        set
+        {
+            _job = value;
         }
     }
 }

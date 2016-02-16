@@ -1,32 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Thief : AJob {
-
-	// Use this for initialization
-	void Start () {
-        this._name = "Thief";
-    }
-
-    public override void levelUp(AEntity entity)
+public class Thief : AEntity
+{
+	public Thief()
     {
-        entity.MaxHp += 2 + (entity.Lvl * 2);
-        entity.Intel += 1;
-        entity.Luck += 3;
-        entity.MagicResistance += 1;
-        entity.MaxMp += entity.Lvl * 0;
-        entity.Strenght += 1;
-        entity.Stamina += 4;
-        entity.Speed += 4;
-        entity.Precision += 1;
-        entity.Agility += 3;
-        entity.Resistance += 1;
-
-        entity.Lvl += 1;
+        this.Name = "Thief";
     }
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
+    public override void levelUp()
+    {
+        this.MaxHp += 2 + (this.Lvl * 2);
+        this.Intel += 1;
+        this.Luck += 3;
+        this.MagicResistance += 1;
+        this.MaxMp += this.Lvl * 0;
+        this.Strenght += 1;
+        this.Stamina += 4;
+        this.Speed += 4;
+        this.Precision += 1;
+        this.Agility += 3;
+        this.Resistance += 1;
+
+        this.Lvl += 1;
+    }
 }
