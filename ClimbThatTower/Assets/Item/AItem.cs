@@ -13,6 +13,7 @@ public abstract class AItem : MonoBehaviour
     private Texture2D _sprite;
     private int _talent;
     private eItemType _type;
+    private int _id;
 
     public void init()
     {
@@ -59,6 +60,19 @@ public abstract class AItem : MonoBehaviour
     {
         get { return _type; }
         set { _type = value; }
+    }
+
+    public int Id
+    {
+        get
+        {
+            return _id;
+        }
+
+        set
+        {
+            _id = value;
+        }
     }
 
     public abstract void Effect();
