@@ -5,7 +5,7 @@ public class Thief : AEntity
 {
 	public Thief()
     {
-        this.Name = "Thief";
+        this.Job = "Thief";
     }
 
     public override void levelUp()

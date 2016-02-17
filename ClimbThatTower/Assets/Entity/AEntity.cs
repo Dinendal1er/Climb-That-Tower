@@ -3,35 +3,35 @@ using System.Collections.Generic;
 
 public abstract class AEntity
 {
-    private string _name;
-    private int _hp;
-    private int _maxHp;
-    private int _mp;
-    private int _maxMp;
-    private int _actionPoint;
-    private int _maxActionPoint;
-    private int _lvl;
-    private int _movement;
+    private string _name = "Not named";
+    private int _hp = 0;
+    private int _maxHp = 0;
+    private int _mp = 0;
+    private int _maxMp = 0;
+    private int _actionPoint = 0;
+    private int _maxActionPoint = 0;
+    private int _lvl = 1;
+    private int _movement = 0;
 
-    private int _exp;
-    private int _maxExp;
+    private int _exp = 0;
+    private int _maxExp = 0;
 
-    private int _strenght;
-    private int _defense;
-    private int _resistance;
-    private int _stamina;
-    private int _speed;
-    private int _intel;
-    private int _agility;
-    private int _precision;
-    private int _luck;
-    private int _magicResistance;
+    private int _strenght = 0;
+    private int _defense = 0;
+    private int _resistance = 0;
+    private int _stamina = 0;
+    private int _speed = 0;
+    private int _intel = 0;
+    private int _agility = 0;
+    private int _precision = 0;
+    private int _luck = 0;
+    private int _magicResistance = 0;
     //TMP
-    private string _equipment;
+    private string _equipment = "No equipment";
 
-    private string _job;
-    protected List<ASkill> _skills;
-    private List<AState> _state;
+    private string _job = "Unemployed";
+    protected List<ASkill> _skills = new List<ASkill>();
+    private List<AState> _state = new List<AState>();
     abstract public void levelUp();
 
     public string Name

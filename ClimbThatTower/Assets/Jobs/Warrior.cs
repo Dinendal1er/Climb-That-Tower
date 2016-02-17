@@ -5,7 +5,7 @@ public class Warrior : AEntity
 {
 	public Warrior()
     {
-        this.Name = "Warrior";
+        this.Job = "Warrior";
 	}
 
     public override void levelUp()

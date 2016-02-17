@@ -6,7 +6,8 @@ public class Mage : AEntity
 {
 
 	// Use this for initialization
-	void Start () {
+	public Mage()
+    {
         this.Job = "Mage";
         this._skills.Add(new Fireball());
     }

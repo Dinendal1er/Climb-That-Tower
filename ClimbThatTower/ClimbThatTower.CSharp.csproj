@@ -66,17 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Completed\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\Completed\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Completed\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Completed\Scripts\Loader.cs" />
-    <Compile Include="Assets\Completed\Scripts\MovingObject.cs" />
-    <Compile Include="Assets\Completed\Scripts\Player.cs" />
-    <Compile Include="Assets\Completed\Scripts\SoundManager.cs" />
-    <Compile Include="Assets\Completed\Scripts\Wall.cs" />
     <Compile Include="Assets\Entity\AEntity.cs" />
     <Compile Include="Assets\Entity\Team.cs" />
-    <Compile Include="Assets\Entity\TestEntitry.cs" />
     <Compile Include="Assets\Inventory\Item.cs" />
     <Compile Include="Assets\Inventory\ItemDatabase.cs" />
     <Compile Include="Assets\Item\AItem.cs" />
@@ -101,11 +92,15 @@
     <Compile Include="Assets\Jobs\Warrior.cs" />
     <Compile Include="Assets\Menu\MenuChoice.cs" />
     <Compile Include="Assets\Menu\MenuUI.cs" />
+    <Compile Include="Assets\Menu\PlayerChoice.cs" />
+    <Compile Include="Assets\Scripts\FieldUnit.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Scripts\MenuUIManager.cs" />
     <Compile Include="Assets\Scripts\OptionManager.cs" />
     <Compile Include="Assets\Scripts\OptionUIManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Viewer.cs" />
     <Compile Include="Assets\Skills\ASkill.cs" />
     <Compile Include="Assets\Skills\Fireball.cs" />
     <Compile Include="Assets\State\AState.cs" />
