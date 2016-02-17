@@ -17,6 +17,10 @@ public abstract class AItem
 
     public void init()
     {
+        _name = "Unknown";
+        _describ = "Maybe a good item";
+        _talent = 0;
+        _id = 0;
        _st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
     }
 

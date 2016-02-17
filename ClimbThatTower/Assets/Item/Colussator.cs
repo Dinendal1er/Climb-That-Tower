@@ -6,12 +6,11 @@ public class Colussator : DoubleHanded
 {
     public Colussator()
     {
+        this.Id = 2;
         this.Name = "Colussator";
         this.talent = 99;
         this.init();
-        foreach (Sprite a in this.st)
-            if (a.name == "ItemIcons1_359")
-                this.s = a;
+        this.s = this.st[359];
     }
 
     public override void Effect()

@@ -2,15 +2,16 @@
 using System.Collections;
 using System;
 
-public class PeonSword : RightHand
-{
-    public PeonSword()
-    {
-        this.Id = 3;
-        this.Name = "PeonSword";
-        this.talent = 3;
+public class ArmorBruiser : Torso {
+
+	
+	void Start () {
+        this.Id = 5;
+        this.Name = "Armor Bruiser";
+        this.talent = 7;
         this.init();
-        this.s = this.st[70];
+        this.s = this.st[184];
+
     }
 
     public override void Effect()

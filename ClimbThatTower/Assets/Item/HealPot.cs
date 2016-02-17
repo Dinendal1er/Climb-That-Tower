@@ -6,12 +6,11 @@ public class HealPot : Consumable
 {
     public HealPot()
     {
+        this.Id = 1;
         this.Name = "HealPot";
         this.talent = 3;
         this.init();
-        foreach (Sprite a in this.st)
-            if (a.name == "ItemIcons1_42")
-                this.s = a;
+        this.s = this.st[42];
     }
 
     public override void Effect()
