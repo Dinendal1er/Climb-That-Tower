@@ -26,8 +26,11 @@ public abstract class AEntity
     private int _precision = 0;
     private int _luck = 0;
     private int _magicResistance = 0;
-    //TMP
-    private string _equipment = "No equipment";
+
+    private EquipmentSet _equipment = null;
+
+    //TODO
+    private string _sprite = "sprite";
 
     private string _job = "Unemployed";
     protected List<ASkill> _skills = new List<ASkill>();
@@ -304,6 +307,19 @@ public abstract class AEntity
         set
         {
             _job = value;
+        }
+    }
+
+    public EquipmentSet Equipment
+    {
+        get
+        {
+            return _equipment;
+        }
+
+        set
+        {
+            _equipment = value;
         }
     }
 }
