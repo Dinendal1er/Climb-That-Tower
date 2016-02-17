@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Thief : APlayer
-{
-	public Thief(string name)
+public class Player : APlayer{
+    public Player(string name, AJob job)
     {
-        this.Job = "Thief";
         this.Agility = 1;
         this.Ap = 1;
         this.Defense = 1;
@@ -30,23 +28,10 @@ public class Thief : APlayer
 
         //TODO
         this.Equipment = new EquipmentSet(new FootBruiser(), new HeadBruiser(), new HandsBruiser(), new Colussator(), new PantsBruiser(), new ArmorBruiser());
-
+        this.Job = null;
     }
-
-    public override void levelUp()
+    override public void levelUp()
     {
-        this.MaxHp += 2 + (this.Lvl * 2);
-        this.Intel += 1;
-        this.Luck += 3;
-        this.MagicResistance += 1;
-        this.MaxMp += this.Lvl * 0;
-        this.Strenght += 1;
-        this.Stamina += 4;
-        this.Speed += 4;
-        this.Precision += 1;
-        this.Agility += 3;
-        this.Resistance += 1;
-
-        this.Lvl += 1;
+        //TODO
     }
 }
