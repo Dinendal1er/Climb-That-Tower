@@ -9,8 +9,8 @@ public class Team : MonoBehaviour
 
     public Team()
     {
-        this.players.Add(new Warrior());
-        this.players.Add(new Mage());
-        this.players.Add(new Thief());
+        this.players.Add(new Warrior("Garrosh"));
+        this.players.Add(new Mage("Jaina"));
+        this.players.Add(new Thief("Valeera"));
     }
 }

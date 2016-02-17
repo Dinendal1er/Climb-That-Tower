@@ -87,7 +87,7 @@ public class MenuUI : MonoBehaviour
             {
                 if (this.playerChoices.Count <= i)
                     this.playerChoices.Add(new PlayerChoice(this.infos.x + (width + 4) * (i % 2), this.infos.y + this.infos.height + 8 + (height + 4) * (i / 2), width, height, this.team.players[i]));
-                this.playerChoices[i].Draw(this.isChoosingPlayer, skin.GetStyle("Inventory Windows"));
+                this.playerChoices[i].Draw(this.isChoosingPlayer, skin);
                 this.infoText = this.playerChoices[i].Hover(this.isChoosingPlayer, this.infoText);
             }
             GUI.Label(this.infos, this.infoText, skin.GetStyle("Inventory Windows"));
