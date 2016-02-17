@@ -8,6 +8,7 @@ public class Colussator : DoubleHanded
     {
         this.Id = 2;
         this.Name = "Colussator";
+        this.describ = "this weapon used to belong to the legendary warrior Colus";
         this.talent = 99;
         this.init();
         this.s = this.st[359];

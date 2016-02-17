@@ -8,6 +8,7 @@ public class FootBruiser : Foot {
 	void Start () {
         this.Id = 7;
         this.Name = "Foot Bruiser";
+        this.describ = "Just classic boots";
         this.talent = 7;
         this.init();
         this.s = this.st[198];

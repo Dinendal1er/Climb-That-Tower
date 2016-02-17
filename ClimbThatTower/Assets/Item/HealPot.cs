@@ -8,6 +8,7 @@ public class HealPot : Consumable
     {
         this.Id = 1;
         this.Name = "HealPot";
+        this.describ = "heal 25 heath point";
         this.talent = 3;
         this.init();
         this.s = this.st[42];

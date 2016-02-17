@@ -8,6 +8,7 @@ public class PantsBruiser : Pants {
 	void Start () {
         this.Id = 6;
         this.Name = "Pants Bruiser";
+        this.describ = "sorry we didnt have pants sprite, so you have pepper";
         this.talent = 7;
         this.init();
         this.s = this.st[17];
