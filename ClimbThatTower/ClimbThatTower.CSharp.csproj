@@ -58,6 +58,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -70,23 +76,28 @@
     <Compile Include="Assets\Entity\Team.cs" />
     <Compile Include="Assets\Inventory\Item.cs" />
     <Compile Include="Assets\Inventory\ItemDatabase.cs" />
-    <Compile Include="Assets\Item\AItem.cs" />
+    <Compile Include="Assets\Item\ArmorBruiser.cs" />
     <Compile Include="Assets\Item\Colussator.cs" />
-    <Compile Include="Assets\Item\Consumable.cs" />
-    <Compile Include="Assets\Item\DoubleHanded.cs" />
-    <Compile Include="Assets\Item\Foot.cs" />
-    <Compile Include="Assets\Item\Hand.cs" />
-    <Compile Include="Assets\Item\Head.cs" />
+    <Compile Include="Assets\Item\FootBruiser.cs" />
+    <Compile Include="Assets\Item\HandsBruiser.cs" />
+    <Compile Include="Assets\Item\HeadBruiser.cs" />
     <Compile Include="Assets\Item\HealPot.cs" />
+    <Compile Include="Assets\Item\Interface\AItem.cs" />
+    <Compile Include="Assets\Item\Interface\Consumable.cs" />
+    <Compile Include="Assets\Item\Interface\DoubleHanded.cs" />
+    <Compile Include="Assets\Item\Interface\Foot.cs" />
+    <Compile Include="Assets\Item\Interface\Hand.cs" />
+    <Compile Include="Assets\Item\Interface\Head.cs" />
+    <Compile Include="Assets\Item\Interface\LeftHand.cs" />
+    <Compile Include="Assets\Item\Interface\OneHanded.cs" />
+    <Compile Include="Assets\Item\Interface\Pants.cs" />
+    <Compile Include="Assets\Item\Interface\RightHand.cs" />
+    <Compile Include="Assets\Item\Interface\Torso.cs" />
+    <Compile Include="Assets\Item\Interface\Weapon.cs" />
     <Compile Include="Assets\Item\Inventory.cs" />
-    <Compile Include="Assets\Item\LeftHand.cs" />
-    <Compile Include="Assets\Item\OneHanded.cs" />
-    <Compile Include="Assets\Item\Pants.cs" />
+    <Compile Include="Assets\Item\PantsBruiser.cs" />
     <Compile Include="Assets\Item\PeonSword.cs" />
-    <Compile Include="Assets\Item\RightHand.cs" />
     <Compile Include="Assets\Item\TestInventory.cs" />
-    <Compile Include="Assets\Item\Torso.cs" />
-    <Compile Include="Assets\Item\Weapon.cs" />
     <Compile Include="Assets\Jobs\Mage.cs" />
     <Compile Include="Assets\Jobs\Thief.cs" />
     <Compile Include="Assets\Jobs\Warrior.cs" />
