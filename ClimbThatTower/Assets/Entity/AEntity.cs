@@ -39,7 +39,7 @@ public abstract class AEntity
 		}
 	}
     private string _job = "Unemployed";
-    private List<ASkill> _skills = new List<ASkill>();
+    protected List<ASkill> _skills = new List<ASkill>();
     private List<AState> _state = new List<AState>();
     abstract public void levelUp();
 
