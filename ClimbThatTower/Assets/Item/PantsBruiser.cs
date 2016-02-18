@@ -5,12 +5,12 @@ using System;
 public class PantsBruiser : Pants {
 
 	// Use this for initialization
-	void Start () {
+	public override void init() {
+        this.st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
         this.Id = 6;
         this.Name = "Pants Bruiser";
         this.describ = "sorry we didnt have pants sprite, so you have pepper";
         this.talent = 7;
-        this.init();
         this.s = this.st[17];
 
     }

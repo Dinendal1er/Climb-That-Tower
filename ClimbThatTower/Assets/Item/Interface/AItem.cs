@@ -8,21 +8,14 @@ public abstract class AItem
 {
     private Sprite[] _st;
     private Sprite   _s;
-    private string _name;
-    private string _describ;
-    private Texture2D _sprite;
-    private int _talent;
+    private string _name = "Unknown";
+    private string _describ = "Maybe a good item";
+    private int _talent = 0;
     private eItemType _type;
     private int _id;
 
-    public void init()
-    {
-        _name = "Unknown";
-        _describ = "Maybe a good item";
-        _talent = 0;
-        _id = 0;
-       _st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
-    }
+
+    public abstract void init();
 
     public Sprite s
     {
@@ -46,12 +39,6 @@ public abstract class AItem
     {
         get { return _describ; }
         set { _describ = value; }
-    }
-
-    public Texture2D sprite
-    {
-        get { return _sprite; }
-        set { _sprite = value; }
     }
 
     public int talent

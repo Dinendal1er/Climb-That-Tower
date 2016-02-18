@@ -4,12 +4,12 @@ using System;
 
 public class PeonSword : RightHand
 {
-    public PeonSword()
+    public override void init()
     {
+        this.st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
         this.Id = 3;
         this.Name = "PeonSword";
         this.talent = 3;
-        this.init();
         this.s = this.st[70];
     }
 
