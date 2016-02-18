@@ -8,6 +8,23 @@ namespace Completed
 
 	public class MapGenerator : MonoBehaviour
 	{
+		public enum FloorType {
+			BLACKANDWHITE = 0,
+			BRICK_GREY = 1,
+			BRICKS = 2,
+			BRICKS2 = 3,
+			CLEARSTONE = 4,
+			GRASS = 5,
+			MOSS = 6,
+			REDCARPET = 7,
+			SAND = 8,
+			STONE = 9,
+			STONE2 = 10,
+			WATER = 11,
+			WOOD = 12,
+			NONE = 13
+		};
+
 		// Using Serializable allows us to embed a class with sub properties in the inspector.
 		[Serializable]
 		public class Count
@@ -24,134 +41,193 @@ namespace Completed
 			}
 		}
 
-
-		public int columns = 0;                      //Number of columns in our game board.
-		public int rows = 0;                         //Number of rows in our game board.
-		public GameObject[] floorTiles;                                 //Array of floor prefabs.
-		public GameObject[] wallTiles;                                  //Array of wall prefabs.
-
-		private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
-		private List <Vector3> gridPositions = new List <Vector3> ();   //A list of possible locations to place tiles.
-
-		//enum FloorType {
-
-		//};
-
-		//Clears our list gridPositions and prepares it to generate a new board.
-		void InitialiseList ()
+		[Serializable]
+		public struct FieldInfo
 		{
-			//Clear our list gridPositions.
-			gridPositions.Clear ();
+			public FloorType ftype;
+			public float height;
+		}
 
-			//Loop through x axis (columns).
-			for(int x = 1; x < columns-1; x++)
+
+		public int columns = 0;
+		public int rows = 0;
+		public GameObject[] floorTiles; // Array of floor prefabs.
+		private Transform boardHolder; // A variable to store a reference to the transform of our Board object.
+		public FieldInfo[] grid; //The grid that is used to generates the map
+
+		//Initialize the grid map with a blank map surrounded by walls
+		void InitMapGrid()
+		{
+			grid = new FieldInfo[(columns + 1) * (rows + 1)];
+			for (int x = 0; x < columns + 1; ++x)
 			{
-				//Within each column, loop through y axis (rows).
-				for(int y = 1; y < rows-1; y++)
+				for (int y = 0; y < rows + 1; ++y)
 				{
-					//At each index add a new Vector3 to our list with the x and y coordinates of that position.
-					gridPositions.Add (new Vector3(x, y, 0f));
+					grid[y * columns + x] = new FieldInfo();
+					if (x == 0 || x == columns || y == 0 || y == rows)
+					{
+						grid[y * columns + x].ftype = FloorType.BRICKS2;
+						grid[y * columns + x].height = 2F;
+					}
+					else
+					{
+						grid[y * columns + x].ftype = FloorType.CLEARSTONE;
+						grid[y * columns + x].height = 1F;
+					}
 				}
 			}
+//			grid[(rows + 1) * (columns + 1) - 1] = (int)FloorType.BRICKS2;
 		}
-			
-		//Sets up the outer walls and floor (background) of the game board.
+
+		//Pops the element of the map
 		void BoardSetup ()
 		{
 			//Instantiate Board and set boardHolder to its transform.
 			boardHolder = new GameObject ("Board").transform;
-
-			//Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
 			for (int x = 0; x < columns + 1; x++)
 			{
-				//Loop along y axis, starting from -1 to place floor or outerwall tiles.
 				for (int y = 0; y < rows + 1; y++)
 				{
-					//Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
-//					GameObject toInstantiate = floorTiles[Random.Range (0, floorTiles.Length)];
-					GameObject toInstantiate;
-
-					if (x == 0 || x == columns || y == 0 || y == rows)
+					if (grid[y * columns + x].ftype != FloorType.NONE)
 					{
-						toInstantiate = wallTiles [1];
+						GameObject toInstantiate = floorTiles[(int)grid[y * columns + x].ftype];
+						Quaternion rotation = Quaternion.identity;
+						rotation.eulerAngles = new Vector3(45F, 0, 45F);
+						//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+						GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+						instance.transform.localRotation = rotation;
+						instance.transform.localScale = new Vector3(1, 1, grid[y * columns + x].height);
+						instance.transform.Translate(new Vector3(0, 0, -(grid[y * columns + x].height - 1) / 2.0F));
+						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+						instance.transform.SetParent (boardHolder);
 					}
-					else
-					{
-						toInstantiate = floorTiles [6];
-					}
-
-					Quaternion rotation = Quaternion.identity;
-					rotation.eulerAngles = new Vector3 (45F, 0, 45F);
-
-					//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-					GameObject instance =
-						Instantiate (toInstantiate, rotation * new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-
-					instance.transform.localRotation = rotation;
-
-					if (x == 0 || x == columns || y == 0 || y == rows)
-					{
-						float block_height = 2.5F;
-						instance.transform.localScale = new Vector3 (1, 1, block_height);
-						instance.transform.Translate(new Vector3 (0, 0, -(block_height - 1) / 2.0F));
-					}
-
-					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-					instance.transform.SetParent (boardHolder);
 				}
 			}
 		}
 
-
-		//RandomPosition returns a random position from our list gridPositions.
-		Vector3 RandomPosition ()
+		static bool isWall(int nb)
 		{
-			//Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-			int randomIndex = Random.Range (0, gridPositions.Count);
-
-			//Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
-			Vector3 randomPosition = gridPositions[randomIndex];
-
-			//Remove the entry at randomIndex from the list so that it can't be re-used.
-			gridPositions.RemoveAt (randomIndex);
-
-			//Return the randomly selected Vector3 position.
-			return randomPosition;
+			return (nb <= (int)FloorType.BRICKS2 && nb != (int)FloorType.BLACKANDWHITE);
 		}
 
-
-		//LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
-		void LayoutObjectAtRandom (GameObject[] tileArray, int minimum, int maximum)
+		private static void Swap<T>(ref T lhs, ref T rhs)
 		{
-			//Choose a random number of objects to instantiate within the minimum and maximum limits
-			int objectCount = Random.Range (minimum, maximum+1);
+			T temp;
+		
+			temp = lhs;
+			lhs = rhs;
+			rhs = temp;
+		}
 
-			//Instantiate objects until the randomly chosen limit objectCount is reached
-			for(int i = 0; i < objectCount; i++)
+		public static List<Vector2> Line(Vector2 p0, Vector2 p1)
+		{
+			int x0 = (int)p0.x;
+			int y0 = (int)p0.y;
+			int x1 = (int)p1.x;
+			int y1 = (int)p1.y;
+			bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+			List<Vector2> retval = new List<Vector2>();
+
+			if (steep)
 			{
-				//Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
-				Vector3 randomPosition = RandomPosition();
+				Swap<int>(ref x0, ref y0);
+				Swap<int>(ref x1, ref y1);
+			}
+			if (x0 > x1)
+			{
+				Swap<int>(ref x0, ref x1);
+				Swap<int>(ref y0, ref y1);
+			}
+			int dX = (x1 - x0), dY = Math.Abs(y1 - y0);
+			int err = (dX / 2);
+			int ystep = (y0 < y1 ? 1 : -1), y = y0;
 
-				//Choose a random tile from tileArray and assign it to tileChoice
-				GameObject tileChoice = tileArray[Random.Range (0, tileArray.Length)];
+			for (int x = x0; x <= x1; ++x)
+			{
+				if (steep)
+					retval.Add(new Vector2(y, x));
+				else
+					retval.Add(new Vector2(x, y));
+				err = err - dY;
+				if (err < 0)
+				{
+					y += ystep;
+					err += dX;
+				}
+			}
+			return (retval);
+		}
 
-				//tileChoice.transform.localScale += new Vector3 (3.1F, 3.1F, 1F);
-				//Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-				Instantiate(tileChoice, randomPosition, Quaternion.identity);
+		delegate bool myComp(List<Vector2> l);
+		delegate void del(List<Vector2> l, float a, float b, float c, float d, myComp f);
+
+		private List<Vector2> RandomShapedRoom(Vector2 roomCenter, int width, int height)
+		{
+			Vector2 a1, a2, b1, b2, c1, c2, d1, d2;
+			List<Vector2> retval = new List<Vector2>();
+			List<Vector2> tmp = new List<Vector2>();
+
+			a1 = new Vector2(roomCenter.x - width / 2, roomCenter.y - height / 2);
+			b1 = new Vector2(roomCenter.x + width / 2, roomCenter.y - height / 2);
+			c1 = new Vector2(roomCenter.x + width / 2, roomCenter.y + height / 2);
+			d1 = new Vector2(roomCenter.x - width / 2, roomCenter.y + height / 2);
+			a2 = new Vector2(a1.x, a1.y / 2);
+			b2 = new Vector2(b1.x + (columns - b1.x) / 2, b1.y);
+			c2 = new Vector2(c1.x, c1.y + (rows - c1.y) / 2);
+			d2 = new Vector2(d1.x, d1.y + (rows - d1.y) / 2);
+
+			del randomAddCorner = (l, a, b, c, d, f) =>
+			{
+				// Adds a new point 1 out of 2 times
+				if (Random.Range(0, 2) % 2 == 0)
+				{
+					l.Add(new Vector2(Random.Range(a, b), Random.Range(c, d)));
+					// f determines if the newly added point needs to be swapped with the last one
+					if (f(l))
+					{
+						Vector2 t = l[l.Count - 2];
+
+						l[l.Count - 2] = l[l.Count - 1];
+						l[l.Count - 1] = t;
+					}
+				}
+			};
+			tmp.Add(new Vector2(Random.Range(a1.x, b1.x), Random.Range(a2.y, a1.y)));
+			randomAddCorner(tmp, a1.x, b1.x, a2.y, a1.y, l => l[l.Count - 2].x > l[l.Count - 1].x);
+			tmp.Add(new Vector2(Random.Range(b1.x, b2.x), Random.Range(b1.y, c1.y)));
+			randomAddCorner(tmp, b1.x, b2.x, b1.y, c1.y, l => l[l.Count - 2].y > l[l.Count - 1].y);
+			tmp.Add(new Vector2(Random.Range(d1.x, c1.x), Random.Range(c1.y, c2.y)));
+			randomAddCorner(tmp, d1.x, c1.x, c1.y, c2.y, l => l[l.Count - 2].x < l[l.Count - 1].x);
+			tmp.Add(new Vector2(Random.Range(d2.x, d1.x), Random.Range(a1.y, d1.y)));
+			randomAddCorner(tmp, d2.x, d1.x, a1.y, d1.y, l => l[l.Count - 2].y < l[l.Count - 1].y);
+			for (int i = 0; i < tmp.Count; ++i)
+			{
+				retval.AddRange(Line(tmp[i], i + 1 == tmp.Count ? tmp[0] : tmp[i + 1]));
+			}
+			return (retval);
+		}
+
+		private void PatternCastleThroneRoom()
+		{
+			List<Vector2> room = RandomShapedRoom(new Vector2(columns / 2, rows / 2), 15, 15);
+
+			room.RemoveAt(Random.Range(0, room.Count));
+			foreach(Vector2 wall in room)
+			{
+				grid[(int)wall.y * columns + (int)wall.x].ftype = FloorType.BRICK_GREY;
+				grid[(int)wall.y * columns + (int)wall.x].height = 2F;
 			}
 		}
-
 
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void Awake ()
 		{
-			columns = 15;
-			rows = 15;
-			//Creates the outer walls and floor.
-			BoardSetup ();
+			columns = 25;
+			rows = 25;
 
-			//Reset our list of gridpositions.
-			InitialiseList ();
+			InitMapGrid ();
+			PatternCastleThroneRoom();
+			BoardSetup ();
 		}
 	}
 }
