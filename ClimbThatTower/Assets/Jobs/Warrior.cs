@@ -12,7 +12,6 @@ public class Warrior : APlayer
         this.Exp = 0;
         this.Hp = 30;
         this.Intel = 1;
-        this.Job = null;
         this.Luck = 1;
         this.Lvl = 1;
         this.MagicResistance = 1;
@@ -20,6 +19,7 @@ public class Warrior : APlayer
         this.MaxExp = 100;
         this.MaxHp = 30;
         this.MaxMp = 30;
+        this.Mp = 30;
         this.Movement = 5;
         this.Name = name;
         this.Precision = 45;

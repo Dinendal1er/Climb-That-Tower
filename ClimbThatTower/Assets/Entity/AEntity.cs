@@ -336,4 +336,17 @@ public abstract class AEntity
             _equipment = value;
         }
     }
+
+    public int Mp
+    {
+        get
+        {
+            return _mp;
+        }
+
+        set
+        {
+            _mp = value;
+        }
+    }
 }

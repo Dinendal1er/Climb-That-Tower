@@ -108,7 +108,6 @@
     <Compile Include="Assets\Jobs\Mage.cs" />
     <Compile Include="Assets\Jobs\Thief.cs" />
     <Compile Include="Assets\Jobs\Warrior.cs" />
-    <Compile Include="Assets\Menu\MenuChoice.cs" />
     <Compile Include="Assets\Menu\MenuUI.cs" />
     <Compile Include="Assets\Menu\PlayerChoice.cs" />
     <Compile Include="Assets\Scripts\FieldUnit.cs" />
