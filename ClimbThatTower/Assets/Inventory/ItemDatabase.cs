@@ -11,15 +11,15 @@ public class ItemDatabase : MonoBehaviour
 
     void Start()
     {
-        AItem item = new HealPot();
-        _database.Add(item);
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+        ConstructionDatabase();
     }
+
     void ConstructionDatabase()
     {
         foreach(JsonData x in this.itemData)
         {
-            this._database.Add(new HealPot());// new AItem((int)x["id"], x["title"].ToString(), (int)x["value"]));
+            this._database.Add(new HealPot());//TODO
         }
     }
 

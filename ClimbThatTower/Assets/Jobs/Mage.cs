@@ -9,8 +9,8 @@ public class Mage : APlayer
 	public Mage(String name)
     {
         this.Job = "Mage";
-        this._skills.Add(new Fireball());
-
+        //this._skills.Add(new Fireball());
+		this.Skills.Add(new Fireball());
         this.Agility = 1;
         this.Ap = 1;
         this.Defense = 1;

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Gnome : AMob {
-
-    
-    public Gnome(int etage)
+public class Artorias : ABoss {
+    public Artorias(int etage)
     {
         this.Agility = 1 * etage;
         this.Ap = 0;
@@ -23,7 +22,7 @@ public class Gnome : AMob {
         this.MaxHp = 10 * etage;
         this.MaxMp = 0;
         this.Movement = 5;
-        this.Name = "Gnome";
+        this.Name = "Arthorias";
         this.Precision = 25 + etage;
         this.Resistance = 0;
         this.Speed = 1 * etage;
@@ -32,8 +31,9 @@ public class Gnome : AMob {
 
         this.Equipment = new EquipmentSet(new FootBruiser(), new HeadBruiser(), new HandsBruiser(), new Colussator(), new PantsBruiser(), new ArmorBruiser());
     }
-    override public void levelUp()
+
+    public override void levelUp()
     {
-        //TODO
+        throw new NotImplementedException();
     }
 }

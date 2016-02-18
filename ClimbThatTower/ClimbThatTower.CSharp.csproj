@@ -67,11 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Entity\AEntity.cs" />
-    <Compile Include="Assets\Entity\AMob.cs" />
     <Compile Include="Assets\Entity\APlayer.cs" />
-    <Compile Include="Assets\Entity\Gnome.cs" />
+    <Compile Include="Assets\Entity\Boss\ABoss.cs" />
+    <Compile Include="Assets\Entity\Boss\Artorias.cs" />
+    <Compile Include="Assets\Entity\Mob\AMob.cs" />
+    <Compile Include="Assets\Entity\Mob\Gnome.cs" />
+    <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
+    <Compile Include="Assets\Entity\Mob\Orc.cs" />
     <Compile Include="Assets\Entity\Team.cs" />
-    <Compile Include="Assets\Inventory\Item.cs" />
     <Compile Include="Assets\Inventory\ItemDatabase.cs" />
     <Compile Include="Assets\Item\ArmorBruiser.cs" />
     <Compile Include="Assets\Item\ArmorRogue.cs" />

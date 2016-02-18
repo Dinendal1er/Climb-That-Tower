@@ -29,14 +29,28 @@ public abstract class AEntity
 
     private EquipmentSet _equipment = null;
 
-    //TODO
-    private string _sprite = "sprite";
-
+    private Sprite _sprite = null;
+	public Sprite Sprite {
+		get {
+			return this._sprite;
+		}
+		set {
+			_sprite = value;
+		}
+	}
     private string _job = "Unemployed";
     protected List<ASkill> _skills = new List<ASkill>();
     private List<AState> _state = new List<AState>();
     abstract public void levelUp();
 
+	public List<ASkill> Skills {
+		get {
+			return this._skills;
+		}
+		set {
+			_skills = value;
+		}
+	}
     public string Name
     {
         get
