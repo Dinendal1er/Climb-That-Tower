@@ -30,7 +30,13 @@ public abstract class AEntity
     private EquipmentSet _equipment = null;
 
     private Sprite _sprite = null;
-
+	public Sprite Sprite {
+		get {
+			return this._sprite;
+		}
+		set {
+			_sprite = value;
+		}
     private string _job = "Unemployed";
     protected List<ASkill> _skills = new List<ASkill>();
     private List<AState> _state = new List<AState>();
