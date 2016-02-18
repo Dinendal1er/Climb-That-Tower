@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerChoice
 {
     private GameObject _obj;
-    private AEntity _player;
+    private APlayer _player;
 
     public void JobIcon(Transform obj)
     {
@@ -74,10 +74,10 @@ public class PlayerChoice
     {
     }
 
-    public PlayerChoice(GameObject obj, float x, float y, AEntity player)
+    public PlayerChoice(GameObject obj, float x, float y, APlayer player)
     {
         this._obj = MonoBehaviour.Instantiate(obj, new Vector3(x, y, 0), new Quaternion()) as GameObject;
-        this._obj.gameObject.transform.SetParent(GameObject.Find("Canvas").transform);
+        this._obj.gameObject.transform.SetParent(GameObject.Find("MenuUI").transform);
         this._player = player;
         foreach(Transform child in this._obj.transform)
         {

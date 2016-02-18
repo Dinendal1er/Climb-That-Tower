@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Team : MonoBehaviour
 {
-    public List<AEntity> players = new List<AEntity>();
+    public List<APlayer> players = new List<APlayer>();
     public Inventory inventory;
 
     public Team()
@@ -13,9 +13,5 @@ public class Team : MonoBehaviour
         this.players.Add(new Mage("Jaina"));
         this.players.Add(new Mage("Medivh"));
         this.players.Add(new Thief("Valeera"));
-        foreach (APlayer player in this.players)
-        {
-            Debug.Log("Job : " + player.Job);
-        }
     }
 }
