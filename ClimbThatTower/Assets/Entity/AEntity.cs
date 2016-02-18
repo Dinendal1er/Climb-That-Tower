@@ -29,8 +29,7 @@ public abstract class AEntity
 
     private EquipmentSet _equipment = null;
 
-    //TODO
-    private string _sprite = "sprite";
+    private Sprite _sprite = null;
 
     private string _job = "Unemployed";
     protected List<ASkill> _skills = new List<ASkill>();
