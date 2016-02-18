@@ -5,12 +5,12 @@ using System;
 public class HandsBruiser : Hand {
 
 	// Use this for initialization
-	void Start () {
+	public override void init()  {
+        this.st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
         this.Id = 8;
         this.Name = "Hand Bruiser";
         this.describ = "it's GLOVE";
         this.talent = 7;
-        this.init();
         this.s = this.st[205];
     }
 
