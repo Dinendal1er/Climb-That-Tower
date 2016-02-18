@@ -4,7 +4,7 @@ using System;
 
 public class Colussator : DoubleHanded
 {
-    public Colussator()
+    void Start()
     {
         this.Id = 2;
         this.Name = "Colussator";
