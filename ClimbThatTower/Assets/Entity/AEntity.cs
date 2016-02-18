@@ -37,11 +37,20 @@ public abstract class AEntity
 		set {
 			_sprite = value;
 		}
+	}
     private string _job = "Unemployed";
-    protected List<ASkill> _skills = new List<ASkill>();
+    private List<ASkill> _skills = new List<ASkill>();
     private List<AState> _state = new List<AState>();
     abstract public void levelUp();
 
+	public List<ASkill> Skills {
+		get {
+			return this._skills;
+		}
+		set {
+			_skills = value;
+		}
+	}
     public string Name
     {
         get
