@@ -76,7 +76,6 @@ namespace Completed
 					}
 				}
 			}
-//			grid[(rows + 1) * (columns + 1) - 1] = (int)FloorType.BRICKS2;
 		}
 
 		//Pops the element of the map
@@ -207,15 +206,114 @@ namespace Completed
 			return (retval);
 		}
 
+		private void BoundaryFill4(FloorType remplacement, FloorType boundary, Vector2 coord)
+		{
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype == boundary)
+			{
+				return;
+			}
+			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			BoundaryFill4(remplacement, boundary, new Vector2(coord.x - 1, coord.y));
+			BoundaryFill4(remplacement, boundary, new Vector2(coord.x, coord.y - 1));
+			BoundaryFill4(remplacement, boundary, new Vector2(coord.x, coord.y + 1));
+			BoundaryFill4(remplacement, boundary, new Vector2(coord.x + 1, coord.y));
+		}
+
+		private void BoundaryFill8(FloorType remplacement, FloorType boundary, Vector2 coord)
+		{
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype == boundary)
+			{
+				return;
+			}
+			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x - 1, coord.y));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x - 1, coord.y - 1));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x, coord.y - 1));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x + 1, coord.y - 1));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x, coord.y + 1));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x - 1, coord.y + 1));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x + 1, coord.y));
+			BoundaryFill8(remplacement, boundary, new Vector2(coord.x + 1, coord.y + 1));
+		}
+
+		private void FloodFill4(FloorType remplacement, FloorType target, Vector2 coord)
+		{
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype != target)
+			{
+				return;
+			}
+			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			FloodFill4(remplacement, target, new Vector2(coord.x - 1, coord.y));
+			FloodFill4(remplacement, target, new Vector2(coord.x, coord.y - 1));
+			FloodFill4(remplacement, target, new Vector2(coord.x, coord.y + 1));
+			FloodFill4(remplacement, target, new Vector2(coord.x + 1, coord.y));
+		}
+
+		private void FloodFill8(FloorType remplacement, FloorType target, Vector2 coord)
+		{
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype != target)
+			{
+				return;
+			}
+			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			FloodFill8(remplacement, target, new Vector2(coord.x - 1, coord.y));
+			FloodFill8(remplacement, target, new Vector2(coord.x - 1, coord.y - 1));
+			FloodFill8(remplacement, target, new Vector2(coord.x, coord.y - 1));
+			FloodFill8(remplacement, target, new Vector2(coord.x + 1, coord.y - 1));
+			FloodFill8(remplacement, target, new Vector2(coord.x, coord.y + 1));
+			FloodFill8(remplacement, target, new Vector2(coord.x - 1, coord.y + 1));
+			FloodFill8(remplacement, target, new Vector2(coord.x + 1, coord.y));
+			FloodFill8(remplacement, target, new Vector2(coord.x + 1, coord.y + 1));
+		}
+
 		private void PatternCastleThroneRoom()
 		{
 			List<Vector2> room = RandomShapedRoom(new Vector2(columns / 2, rows / 2), 15, 15);
 
-			room.RemoveAt(Random.Range(0, room.Count));
 			foreach(Vector2 wall in room)
 			{
 				grid[(int)wall.y * columns + (int)wall.x].ftype = FloorType.BRICK_GREY;
 				grid[(int)wall.y * columns + (int)wall.x].height = 2F;
+			}
+
+			BoundaryFill4(FloorType.REDCARPET, FloorType.BRICK_GREY, new Vector2(columns / 2, rows / 2));
+			FloodFill8(FloorType.BRICKS, FloorType.BRICK_GREY, room[0]);
+		}
+
+		private void PopRiver(Vector2 coord, Vector2 last, Vector2 direction)
+		{
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == FloorType.WATER)
+				return;
+			grid[(int)coord.y * columns + (int)coord.x].ftype = FloorType.WATER;
+			switch (Random.Range(0, 9))
+			{
+			case 0:
+				if (last.x + 1 == coord.x)
+					PopRiver(new Vector2(coord.x + 1, coord.y), coord, direction);
+				else
+					PopRiver(new Vector2(coord.x - 1, coord.y), coord, direction);
+				break;
+			case 1:
+				if (last.x - 1 == coord.x)
+					PopRiver(new Vector2(coord.x - 1, coord.y), coord, direction);
+				else
+					PopRiver(new Vector2(coord.x + 1, coord.y), coord, direction);
+				break;
+			case 2:
+				if (last.y + 1 == coord.y)
+					PopRiver(new Vector2(coord.x, coord.y + 1), coord, direction);
+				else
+					PopRiver(new Vector2(coord.x, coord.y - 1), coord, direction);
+				break;
+			case 3:
+				if (last.y - 1 == coord.y)
+					PopRiver(new Vector2(coord.x, coord.y - 1), coord, direction);
+				else
+					PopRiver(new Vector2(coord.x, coord.y + 1), coord, direction);
+				break;
+			default:
+				PopRiver(coord + direction, coord, direction);
+				break;
 			}
 		}
 
@@ -226,7 +324,7 @@ namespace Completed
 			rows = 25;
 
 			InitMapGrid ();
-			PatternCastleThroneRoom();
+			PopRiver(new Vector2(2, 12), new Vector2(1, 12), new Vector2(1, 0));
 			BoardSetup ();
 		}
 	}
