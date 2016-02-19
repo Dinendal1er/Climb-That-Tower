@@ -1,36 +1,112 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
+using UnityEngine.UI;
 
 public class PlayerChoice
 {
-    private Rect _background;
-    private Rect _name;
-    private AEntity _player;
+    private GameObject _obj;
+    private APlayer _player;
 
-    public PlayerChoice(float x, float y, float width, float height, AEntity player)
+    public void JobIcon(Transform obj)
     {
-        this._background = new Rect(x, y, width, height);
-        this._name = new Rect(x + 8, y + 8, width - 12, height - 12);
+
+    }
+
+    public void Name(Transform obj)
+    {
+        Text txt = obj.GetComponent<Text>();
+        txt.text = this._player.Name;
+    }
+
+    public void Job(Transform obj)
+    {
+        Text txt = obj.GetComponent<Text>();
+        txt.text = this._player.Job;
+    }
+
+    public void HP(Transform obj)
+    {
+        Slider bar = obj.GetComponent<Slider>();
+        bar.maxValue = this._player.MaxHp;
+        bar.value = this._player.Hp;
+        foreach (Transform child in obj)
+        {
+            if (child.name == "HP Value")
+            {
+                Text txt = child.GetComponent<Text>();
+                txt.text = this._player.Hp.ToString() + "/" + this._player.MaxHp.ToString();
+            }
+        }
+    }
+
+    public void Mana(Transform obj)
+    {
+        Slider bar = obj.GetComponent<Slider>();
+        bar.maxValue = this._player.MaxMp;
+        bar.value = this._player.Mp;
+        foreach (Transform child in obj)
+        {
+            if (child.name == "Mana Value")
+            {
+                Text txt = child.GetComponent<Text>();
+                txt.text = this._player.Mp.ToString() + "/" + this._player.MaxMp.ToString();
+            }
+        }
+    }
+
+    public void Exp(Transform obj)
+    {
+        Slider bar = obj.GetComponent<Slider>();
+        bar.maxValue = this._player.MaxExp;
+        bar.value = this._player.Exp;
+        foreach (Transform child in obj)
+        {
+            if (child.name == "Exp Value")
+            {
+                Text txt = child.GetComponent<Text>();
+                txt.text = this._player.Exp.ToString() + "/" + this._player.MaxExp.ToString();
+            }
+        }
+    }
+
+    public void PlayerSprite(Transform obj)
+    {
+    }
+
+    public PlayerChoice(GameObject obj, float x, float y, APlayer player)
+    {
+        this._obj = MonoBehaviour.Instantiate(obj, new Vector3(x, y, 0), new Quaternion()) as GameObject;
+        this._obj.gameObject.transform.SetParent(GameObject.Find("MenuUI").transform);
         this._player = player;
+        foreach(Transform child in this._obj.transform)
+        {
+            Object[] args = new Object[1];
+            args[0] = child;
+            System.Type thisType = this.GetType();
+            MethodInfo theMethod = thisType.GetMethod(child.name);
+            if (theMethod != null)
+                theMethod.Invoke(this, args);
+        }
     }
 
-    public bool Draw(bool isChoosingPlayers, GUISkin skin)
+    public static float getWidth()
     {
-        bool hasClicked = false;
-        if (!isChoosingPlayers)
-            GUI.Label(this._background, "", skin.GetStyle("Inventory Windows"));
-        else
-            hasClicked = GUI.Button(this._background, "", skin.GetStyle("Inventory Windows"));
-        GUI.Label(this._name, this._player.Job, skin.GetStyle("Player Job Windows"));
-        return (hasClicked);
+        return (Screen.width / 5);
     }
 
-    public string Hover(bool isChoosingPlayer, string infoText)
+    public static float getHeight()
     {
-        if (!isChoosingPlayer)
-            return (infoText);
-        if (this._background.Contains(Event.current.mousePosition))
-            return ("Choisir le joueur " + this._player.Name + ".");
-        return (infoText);
+        return (Screen.height / 4);
+    }
+
+    public void SetActive(bool active)
+    {
+        this._obj.SetActive(active);
+    }
+
+    public void Update()
+    {
+
     }
 }

@@ -5,12 +5,12 @@ using System;
 public class HeadRogue : Head {
 
 	// Use this for initialization
-	void Start () {
+	public override void init() {
+        this.st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
         this.Id = 10;
         this.Name = "Head Rogue";
         this.describ = "Sneaky balaclava";
         this.talent = 7;
-        this.init();
         this.s = this.st[189];
 
     }

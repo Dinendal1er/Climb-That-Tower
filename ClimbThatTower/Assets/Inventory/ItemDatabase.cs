@@ -7,28 +7,34 @@ using System.IO;
 public class ItemDatabase : MonoBehaviour
 {
     private List<AItem> _database = new List<AItem>();
-    private JsonData itemData;
+    private JsonData _itemData;
 
     void Start()
     {
-        AItem item = new HealPot();
-        _database.Add(item);
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+        _itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+        ConstructionDatabase();
+
+        Debug.Log(this._database[0].Name);
+        Debug.Log(this._database[0].Id);
     }
+
     void ConstructionDatabase()
     {
-        foreach(JsonData x in this.itemData)
+        for(int i = 0; i < _itemData.Count; i++)
         {
-            this._database.Add(new HealPot());// new AItem((int)x["id"], x["title"].ToString(), (int)x["value"]));
+            Debug.Log("test2");
+            AItem item = new HealPot();
+            item.init();
+            this._database.Add(item);//TODO
         }
     }
 
     public AItem FetchItemByID(int id)
     {
-        foreach(AItem x in this._database)
+        for (int i = 0; i < this._database.Count; i++)
         {
-            if (x.Id == id)
-                return x;
+            if (this._database[i].Id == id)
+                return this._database[i];
         }
         return null;
     }

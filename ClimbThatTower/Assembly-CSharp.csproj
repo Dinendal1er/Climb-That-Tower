@@ -46,12 +46,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Entity\AEntity.cs" />
+     <Compile Include="Assets\Entity\APlayer.cs" />
+     <Compile Include="Assets\Entity\Boss\ABoss.cs" />
+     <Compile Include="Assets\Entity\Boss\Artorias.cs" />
+     <Compile Include="Assets\Entity\Mob\AMob.cs" />
+     <Compile Include="Assets\Entity\Mob\Gnome.cs" />
+     <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
+     <Compile Include="Assets\Entity\Mob\Orc.cs" />
      <Compile Include="Assets\Entity\Team.cs" />
-     <Compile Include="Assets\Inventory\Item.cs" />
      <Compile Include="Assets\Inventory\ItemDatabase.cs" />
      <Compile Include="Assets\Item\ArmorBruiser.cs" />
      <Compile Include="Assets\Item\ArmorRogue.cs" />
      <Compile Include="Assets\Item\Colussator.cs" />
+     <Compile Include="Assets\Item\EquipmentSet\EquipmentSet.cs" />
      <Compile Include="Assets\Item\FootBruiser.cs" />
      <Compile Include="Assets\Item\FootRogue.cs" />
      <Compile Include="Assets\Item\HandRogue.cs" />
@@ -103,7 +110,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>C:/Users/Ikaros/Documents/GitHub/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
+ <HintPath>C:/Users/coudra_c/Documents/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

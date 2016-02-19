@@ -5,12 +5,12 @@ using System;
 public class ArmorBruiser : Torso {
 
 	
-	void Start () {
+	public override void init () {
+        this.st = Resources.LoadAll<Sprite>("Sprites/ItemIcons1");
         this.Id = 5;
         this.Name = "Armor Bruiser";
         this.describ = "It's heavy and awfull, but cheap armor";
         this.talent = 7;
-        this.init();
         this.s = this.st[184];
 
     }
