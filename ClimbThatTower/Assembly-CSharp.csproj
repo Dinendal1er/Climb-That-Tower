@@ -54,7 +54,8 @@
      <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
      <Compile Include="Assets\Entity\Mob\Orc.cs" />
      <Compile Include="Assets\Entity\Team.cs" />
-     <Compile Include="Assets\Inventory\ItemDatabase.cs" />
+     <Compile Include="Assets\Inventory\InventoryItems.cs" />
+     <Compile Include="Assets\Inventory\ItemData.cs" />
      <Compile Include="Assets\Item\ArmorBruiser.cs" />
      <Compile Include="Assets\Item\ArmorRogue.cs" />
      <Compile Include="Assets\Item\Colussator.cs" />
@@ -87,7 +88,6 @@
      <Compile Include="Assets\Jobs\Mage.cs" />
      <Compile Include="Assets\Jobs\Thief.cs" />
      <Compile Include="Assets\Jobs\Warrior.cs" />
-     <Compile Include="Assets\Menu\MenuChoice.cs" />
      <Compile Include="Assets\Menu\MenuUI.cs" />
      <Compile Include="Assets\Menu\PlayerChoice.cs" />
      <Compile Include="Assets\Scripts\FieldUnit.cs" />
@@ -95,6 +95,7 @@
      <Compile Include="Assets\Scripts\MenuUIManager.cs" />
      <Compile Include="Assets\Scripts\OptionManager.cs" />
      <Compile Include="Assets\Scripts\OptionUIManager.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\Scripts\Viewer.cs" />
@@ -110,7 +111,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>C:/Users/coudra_c/Documents/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
+ <HintPath>C:/Users/Paul/Documents/GitHub/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,7 +75,9 @@
     <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
     <Compile Include="Assets\Entity\Mob\Orc.cs" />
     <Compile Include="Assets\Entity\Team.cs" />
-    <Compile Include="Assets\Inventory\ItemDatabase.cs" />
+    <Compile Include="Assets\Inventory\InventoryItems.cs" />
+    <Compile Include="Assets\Inventory\ItemData.cs" />
+    <Compile Include="Assets\Inventory\Slot.cs" />
     <Compile Include="Assets\Item\ArmorBruiser.cs" />
     <Compile Include="Assets\Item\ArmorRogue.cs" />
     <Compile Include="Assets\Item\Colussator.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Assets\Scripts\MenuUIManager.cs" />
     <Compile Include="Assets\Scripts\OptionManager.cs" />
     <Compile Include="Assets\Scripts\OptionUIManager.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Viewer.cs" />

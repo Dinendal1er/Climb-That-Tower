@@ -12,6 +12,7 @@ public class HealPot : Consumable
         this.describ = "heal 25 heath point";
         this.talent = 3;
         this.s = this.st[42];
+        this.Stack = true;
     }
 
     public override void Effect()
