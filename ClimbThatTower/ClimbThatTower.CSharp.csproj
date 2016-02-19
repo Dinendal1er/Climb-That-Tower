@@ -77,6 +77,7 @@
     <Compile Include="Assets\Entity\Team.cs" />
     <Compile Include="Assets\Inventory\InventoryItems.cs" />
     <Compile Include="Assets\Inventory\ItemData.cs" />
+    <Compile Include="Assets\Inventory\Slot.cs" />
     <Compile Include="Assets\Item\ArmorBruiser.cs" />
     <Compile Include="Assets\Item\ArmorRogue.cs" />
     <Compile Include="Assets\Item\Colussator.cs" />
