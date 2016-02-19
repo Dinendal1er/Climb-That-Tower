@@ -13,6 +13,7 @@ public abstract class AItem
     private int _talent = 0;
     private eItemType _type;
     private int _id;
+    private bool _stack = false;
 
 
     public abstract void init();
@@ -63,6 +64,19 @@ public abstract class AItem
         set
         {
             _id = value;
+        }
+    }
+
+    public bool Stack
+    {
+        get
+        {
+            return _stack;
+        }
+
+        set
+        {
+            _stack = value;
         }
     }
 
