@@ -24,9 +24,23 @@ public class Inventory : MonoBehaviour
 
     public void test()
     {
-        
+		AItem i;
+		i = new HealPot ();
+		i.init ();
+		this._items.Add(new Pair<AItem, int>(i, 2));
+
+		AItem it;
+			it = new HealPot ();
+			it.init ();
+		this._items.Add(new Pair<AItem, int>(it, 2));
+
+		AItem itt;
+		itt = new HealPot ();
+		itt.init ();
+		this._items.Add(new Pair<AItem, int>(itt, 2));
+
         this._iList = new InventoryItems();
-        ItemData it = new ItemData();
+        /*ItemData it = new ItemData();
         it._item = new HealPot();
         it._item.init();
         it._slot = 2;
@@ -45,7 +59,7 @@ public class Inventory : MonoBehaviour
         it3._item.init();
         it3._slot = 10;
         it3._nbr = 1;
-        this._iList._items.Add(it3);
+        this._iList._items.Add(it3);*/
     }
 
     void Start()
@@ -97,36 +111,31 @@ public class Inventory : MonoBehaviour
                 t.transform.position = Vector2.zero;
                 t.GetComponent<Image>().sprite = x.First.s;
                 t.name = x.First.Name;
+				this._iList._items.Add (tmp);
             }
-            //TODO check si instancier pour stack
             else {
-                t = Instantiate(this._inventoryItem);
-                tmp = t.GetComponent<ItemData>();
-                tmp._item = x.First;
-                tmp._slot = x.Second;
-                if (x.First.Stack == false)
-                    tmp._nbr = 1;
-                else
-                {
-                    foreach (Pair<AItem, int> j in this._items)
-                    {
-                        if (x.First.Id == j.First.Id)
-                            tmp._nbr++;
-                    }
-                }
-                if (x.First.Stack)
-                    }
-            //x._gameObj = Instantiate(this._inventoryItem);
-            /*if (x._item.Stack == false)
-                x._gameObj.transform.GetChild(0).gameObject.SetActive(false);
-            x._gameObj.transform.SetParent(this._slots[x._slot].First.transform);
-            this._slots[x._slot].Second = false;
-            x._gameObj.transform.position = Vector2.zero;
-            x._gameObj.GetComponent<Image>().sprite = x._item.s;
-            x._gameObj.name = x._item.Name;
-            x._gameObj.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = x._nbr.ToString();
-            x._gameObj.AddComponent()*/
-        }
+				int pos = 0;
+				if ((pos = CheckIfItemIsInInventory (x.First.Id)) != -1) {
+					this._iList._items [pos]._nbr += 1;
+					this._iList._items [pos].gameObject.transform.GetChild (0).GetChild (0).GetComponent<Text> ().text = this._iList._items [pos]._nbr.ToString ();
+				} 
+				else 
+				{
+					t = Instantiate(this._inventoryItem);
+					tmp = t.GetComponent<ItemData>();
+					tmp._item = x.First;
+					tmp._slot = x.Second;
+					tmp._nbr = 1;
+					t.transform.SetParent(this._slots[x.Second].First.transform);
+					this._slots[x.Second].Second = false;
+					t.transform.position = Vector2.zero;
+					t.GetComponent<Image>().sprite = x.First.s;
+					t.name = x.First.Name;
+					t.gameObject.transform.GetChild (0).GetChild (0).GetComponent<Text> ().text = tmp._nbr.ToString();
+					this._iList._items.Add (tmp);
+				}
+			}
+		}
     }
 
     public void AddItem(AItem Item)
@@ -136,7 +145,8 @@ public class Inventory : MonoBehaviour
         if (Item.Stack && ((pos = CheckIfItemIsInInventory(Item.Id)) != -1))
         {
             this._iList._items[pos]._nbr += 1;
-            this._iList._items[pos]._gameObj.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = this._iList._items[pos]._nbr.ToString();
+			this._iList._items[pos].gameObject.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = this._iList._items[pos]._nbr.ToString();
+            //this._iList._items[pos]._gameObj.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = this._iList._items[pos]._nbr.ToString();
             //if (this._iList._items[pos]._gameObj.transform.GetChild(0).gameObject.activeInHierarchy == false)
                // this._iList._items[pos]._gameObj.transform.GetChild(0).gameObject.SetActive(true);
         }
@@ -146,7 +156,20 @@ public class Inventory : MonoBehaviour
             {
                 if (this._slots[i].Second == true)
                 {
-                    ItemData TG = new ItemData();
+					GameObject t = Instantiate(this._inventoryItem);
+					ItemData tmp = t.GetComponent<ItemData>();
+					tmp._item = Item;
+					tmp._slot = i;
+					tmp._nbr = 1;
+					this._iList._items.Add (tmp);
+					if (Item.Stack == false)
+						t.transform.GetChild (0).gameObject.SetActive (false);
+					t.transform.SetParent(this._slots[i].First.transform);
+					this._slots[i].Second = false;
+					t.transform.position = Vector2.zero;
+					t.GetComponent<Image>().sprite = Item.s;
+					t.name = Item.Name;
+                    /*ItemData TG = new ItemData();
                     TG._item = Item;
                     TG._slot = i;
                     TG._nbr = 1;
@@ -159,7 +182,7 @@ public class Inventory : MonoBehaviour
                     this._slots[i].Second = false;
                     TG._gameObj.transform.position = Vector2.zero;
                     TG._gameObj.GetComponent<Image>().sprite = Item.s;
-                    TG._gameObj.name = Item.Name;
+                    TG._gameObj.name = Item.Name;*/
                 
                     break;
                 }
@@ -171,7 +194,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < this._items.Count; i++)
         {
-            GUI.Label(new Rect(10, i * 20, 200, 50), this._items[i].Name);
+            GUI.Label(new Rect(10, i * 20, 200, 50), this._items[i].First.Name);
         }
     }
 
