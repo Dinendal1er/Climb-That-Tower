@@ -49,11 +49,22 @@ namespace Completed
 		}
 
 
+		public float maxHeight = 0;
 		public int columns = 0;
 		public int rows = 0;
 		public GameObject[] floorTiles; // Array of floor prefabs.
 		private Transform boardHolder; // A variable to store a reference to the transform of our Board object.
 		public FieldInfo[] grid; //The grid that is used to generates the map
+
+		int _coord(Vector2 coord)
+		{
+			return ((int)coord.y * columns + (int)coord.x);
+		}
+
+		int _coord(int x, int y)
+		{
+			return (x * columns + y);
+		}
 
 		//Initialize the grid map with a blank map surrounded by walls
 		void InitMapGrid()
@@ -63,16 +74,16 @@ namespace Completed
 			{
 				for (int y = 0; y < rows + 1; ++y)
 				{
-					grid[y * columns + x] = new FieldInfo();
+					grid[_coord(x, y)] = new FieldInfo();
 					if (x == 0 || x == columns || y == 0 || y == rows)
 					{
-						grid[y * columns + x].ftype = FloorType.BRICKS2;
-						grid[y * columns + x].height = 2F;
+						grid[_coord(x, y)].ftype = FloorType.BRICKS2;
+						grid[_coord(x, y)].height = 2F;
 					}
 					else
 					{
-						grid[y * columns + x].ftype = FloorType.CLEARSTONE;
-						grid[y * columns + x].height = 1F;
+						grid[_coord(x, y)].ftype = FloorType.CLEARSTONE;
+						grid[_coord(x, y)].height = 1F;
 					}
 				}
 			}
@@ -87,16 +98,16 @@ namespace Completed
 			{
 				for (int y = 0; y < rows + 1; y++)
 				{
-					if (grid[y * columns + x].ftype != FloorType.NONE)
+					if (grid[_coord(x, y)].ftype != FloorType.NONE)
 					{
-						GameObject toInstantiate = floorTiles[(int)grid[y * columns + x].ftype];
+						GameObject toInstantiate = floorTiles[(int)grid[_coord(x, y)].ftype];
 						Quaternion rotation = Quaternion.identity;
 						rotation.eulerAngles = new Vector3(45F, 0, 45F);
 						//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 						GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, 0), Quaternion.identity) as GameObject;
 						instance.transform.localRotation = rotation;
-						instance.transform.localScale = new Vector3(1, 1, grid[y * columns + x].height);
-						instance.transform.Translate(new Vector3(0, 0, -(grid[y * columns + x].height - 1) / 2.0F));
+						instance.transform.localScale = new Vector3(1, 1, grid[_coord(x, y)].height);
+						instance.transform.Translate(new Vector3(0, 0, -(grid[_coord(x, y)].height - 1) / 2.0F));
 						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 						instance.transform.SetParent (boardHolder);
 					}
@@ -208,11 +219,11 @@ namespace Completed
 
 		private void BoundaryFill4(FloorType remplacement, FloorType boundary, Vector2 coord)
 		{
-			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype == boundary)
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == remplacement || grid[_coord(coord)].ftype == boundary)
 			{
 				return;
 			}
-			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			grid[_coord(coord)].ftype = remplacement;
 			BoundaryFill4(remplacement, boundary, new Vector2(coord.x - 1, coord.y));
 			BoundaryFill4(remplacement, boundary, new Vector2(coord.x, coord.y - 1));
 			BoundaryFill4(remplacement, boundary, new Vector2(coord.x, coord.y + 1));
@@ -221,11 +232,11 @@ namespace Completed
 
 		private void BoundaryFill8(FloorType remplacement, FloorType boundary, Vector2 coord)
 		{
-			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype == boundary)
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == remplacement || grid[_coord(coord)].ftype == boundary)
 			{
 				return;
 			}
-			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			grid[_coord(coord)].ftype = remplacement;
 			BoundaryFill8(remplacement, boundary, new Vector2(coord.x - 1, coord.y));
 			BoundaryFill8(remplacement, boundary, new Vector2(coord.x - 1, coord.y - 1));
 			BoundaryFill8(remplacement, boundary, new Vector2(coord.x, coord.y - 1));
@@ -238,11 +249,11 @@ namespace Completed
 
 		private void FloodFill4(FloorType remplacement, FloorType target, Vector2 coord)
 		{
-			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype != target)
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == remplacement || grid[_coord(coord)].ftype != target)
 			{
 				return;
 			}
-			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			grid[_coord(coord)].ftype = remplacement;
 			FloodFill4(remplacement, target, new Vector2(coord.x - 1, coord.y));
 			FloodFill4(remplacement, target, new Vector2(coord.x, coord.y - 1));
 			FloodFill4(remplacement, target, new Vector2(coord.x, coord.y + 1));
@@ -251,11 +262,11 @@ namespace Completed
 
 		private void FloodFill8(FloorType remplacement, FloorType target, Vector2 coord)
 		{
-			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == remplacement || grid[(int)coord.y * columns + (int)coord.x].ftype != target)
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == remplacement || grid[_coord(coord)].ftype != target)
 			{
 				return;
 			}
-			grid[(int)coord.y * columns + (int)coord.x].ftype = remplacement;
+			grid[_coord(coord)].ftype = remplacement;
 			FloodFill8(remplacement, target, new Vector2(coord.x - 1, coord.y));
 			FloodFill8(remplacement, target, new Vector2(coord.x - 1, coord.y - 1));
 			FloodFill8(remplacement, target, new Vector2(coord.x, coord.y - 1));
@@ -272,8 +283,8 @@ namespace Completed
 
 			foreach(Vector2 wall in room)
 			{
-				grid[(int)wall.y * columns + (int)wall.x].ftype = FloorType.BRICK_GREY;
-				grid[(int)wall.y * columns + (int)wall.x].height = 2F;
+				grid[_coord(wall)].ftype = FloorType.BRICK_GREY;
+				grid[_coord(wall)].height = 2F;
 			}
 
 			BoundaryFill4(FloorType.REDCARPET, FloorType.BRICK_GREY, new Vector2(columns / 2, rows / 2));
@@ -282,9 +293,10 @@ namespace Completed
 
 		private void PopRiver(Vector2 coord, Vector2 last, Vector2 direction)
 		{
-			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[(int)coord.y * columns + (int)coord.x].ftype == FloorType.WATER)
+			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == FloorType.WATER)
 				return;
-			grid[(int)coord.y * columns + (int)coord.x].ftype = FloorType.WATER;
+			grid[_coord(coord)].ftype = FloorType.WATER;
+			grid[_coord(coord)].height /= 2.0f;
 			switch (Random.Range(0, 9))
 			{
 			case 0:
@@ -316,15 +328,110 @@ namespace Completed
 				break;
 			}
 		}
+			
+		private void InterpolateLineX(Vector2 a, Vector2 b)
+		{
+			float h = (grid[_coord(b)].height - grid[_coord(a)].height) / (b.x - a.x);
+
+			for (int i = 0; i != (b.x - a.x); i += ((b.x - a.x) > 0 ? 1 : -1))
+			{
+				grid[_coord(new Vector2(a.x + i, a.y))].height = grid[_coord(a)].height + h * (float)i;
+			}
+		}
+
+		private void InterpolateLineY(Vector2 a, Vector2 b)
+		{
+			float h = (grid[_coord(b)].height - grid[_coord(a)].height) / (b.y - a.y);
+
+			for (int i = 0; i != (b.y - a.y); i += ((b.y - a.y) > 0 ? 1 : -1))
+			{
+				grid[_coord(new Vector2(a.x, a.y + i))].height = grid[_coord(a)].height + h * (float)i;
+			}
+		}
+
+		private void PlasmaHeightField(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+		{
+			InterpolateLineX(a, b);
+			InterpolateLineX(c, d);
+			for (int i = 0; i != (b.x - a.x + ((b.x - a.x) > 0 ? 1 : -1)); i += ((b.x - a.x) > 0 ? 1 : -1))
+			{
+				InterpolateLineY(new Vector2(a.x + i, a.y), new Vector2(a.x + i, c.y));
+			}
+			if (b.x - d.x > 2)
+			{
+				Vector2 center;
+				Vector2 north, south, east, west;
+				float variance = ((b.x - d.x) / columns) * 1.5f;
+
+				center = new Vector2(d.x + ((int)(b.x - d.x) / 2), d.y + ((int)(b.y - d.y) / 2));
+				north = new Vector2(d.x + ((int)(b.x - d.x) / 2), b.y);
+				south = new Vector2(d.x + ((int)(b.x - d.x) / 2), d.y);
+				east = new Vector2(d.x, d.y + ((int)(b.y - d.y) / 2));
+				west = new Vector2(b.x, d.y + ((int)(b.y - d.y) / 2));
+
+				grid[_coord(center)].height += Random.Range(-grid[_coord(center)].height * variance, maxHeight * variance);
+				PlasmaHeightField(a, north, center, east);
+				PlasmaHeightField(north, b, west, center);
+				PlasmaHeightField(center, west, c, south);
+				PlasmaHeightField(east, center, south, d);
+			}
+		}
+
+		private void PlasmaHeightField()
+		{
+			Vector2 a, b, c, d;
+
+			a = new Vector2(1, rows - 1);
+			b = new Vector2(columns - 1, rows - 1);
+			c = new Vector2(columns - 1, 1);
+			d = new Vector2(1, 1);
+			grid[_coord(a)].height += Random.Range(-grid[_coord(a)].height, maxHeight);
+			grid[_coord(b)].height += Random.Range(-grid[_coord(b)].height, maxHeight);
+			grid[_coord(c)].height += Random.Range(-grid[_coord(c)].height, maxHeight);
+			grid[_coord(d)].height += Random.Range(-grid[_coord(d)].height, maxHeight);
+			PlasmaHeightField(a, b, c, d);
+		}
+
+		private void ColorByHeight()
+		{
+			float heightForStone = 5.0f;
+			float heightForGrass = 2f;
+
+			for (int x = 0; x < columns; x++)
+			{
+				for (int y = 0; y < rows; y++)
+				{
+					if (x > 0 && x < columns && y > 0 && y < rows)
+					{
+						if (grid[_coord(x, y)].height > heightForStone)
+						{
+							grid[_coord(x, y)].ftype = FloorType.STONE;
+						}
+						else if (grid[_coord(x, y)].height > heightForGrass)
+						{
+							grid[_coord(x, y)].ftype = FloorType.GRASS;
+						}
+						else
+						{
+							grid[_coord(x, y)].ftype = FloorType.SAND;
+						}
+					}
+				}
+			}
+		}
 
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void Awake ()
 		{
-			columns = 25;
-			rows = 25;
+			columns = 34;
+			rows = 34;
+			maxHeight = 10F;
 
 			InitMapGrid ();
-			PopRiver(new Vector2(2, 12), new Vector2(1, 12), new Vector2(1, 0));
+			PlasmaHeightField();
+			ColorByHeight();
+			PopRiver(new Vector2(12, 1), new Vector2(11, 1), new Vector2(0, 1));
+			PopRiver(new Vector2(33, 12), new Vector2(33, 12), new Vector2(-1, 0));
 			BoardSetup ();
 		}
 	}
