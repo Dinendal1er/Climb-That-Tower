@@ -40,32 +40,12 @@ public class Inventory : MonoBehaviour
 		this._items.Add(new Pair<AItem, int>(itt, 2));
 
         this._iList = new InventoryItems();
-        /*ItemData it = new ItemData();
-        it._item = new HealPot();
-        it._item.init();
-        it._slot = 2;
-        it._nbr = 1;
-        this._iList._items.Add(it);
-
-        ItemData it2 = new ItemData();
-        it2._item = new HealPot();
-        it2._item.init();
-        it2._slot = 6;
-        it2._nbr = 1;
-        this._iList._items.Add(it2);
-
-        ItemData it3 = new ItemData();
-        it3._item = new HealPot();
-        it3._item.init();
-        it3._slot = 10;
-        it3._nbr = 1;
-        this._iList._items.Add(it3);*/
     }
 
     void Start()
     {
         this._slotAmount = 12;
-        this._inventoryPanel = GameObject.Find("Inventory");
+        this._inventoryPanel = GameObject.Find("Inventory Panel");
         this._slotPanel = this._inventoryPanel.transform.FindChild("Slot Panel").gameObject;
 
         test(); //TODO
@@ -82,6 +62,7 @@ public class Inventory : MonoBehaviour
             ZIZI.First = Instantiate(this._inventorySlot);
             ZIZI.Second = true;
             this._slots.Add(ZIZI);
+            this._slots[i].First.GetComponent<Slot>()._id = i;
             this._slots[i].First.transform.SetParent(this._slotPanel.transform);
         }
         AffAllItems();
@@ -102,6 +83,7 @@ public class Inventory : MonoBehaviour
             if (x.First.Stack == false)
             {
                 t = Instantiate(this._inventoryItem);
+                t.GetComponent<ItemData>()._slot = x.Second;
                 tmp = t.GetComponent<ItemData>();
                 tmp._item = x.First;
                 tmp._slot = x.Second;
