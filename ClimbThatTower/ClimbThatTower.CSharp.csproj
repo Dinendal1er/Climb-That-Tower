@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CharacterTurner.cs" />
     <Compile Include="Assets\Entity\AEntity.cs" />
     <Compile Include="Assets\Entity\APlayer.cs" />
     <Compile Include="Assets\Entity\Boss\ABoss.cs" />
