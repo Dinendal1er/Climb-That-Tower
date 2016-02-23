@@ -25,6 +25,16 @@ namespace Completed
 			NONE = 13
 		};
 
+		public enum RoomType
+		{
+			BOSS,
+			SEMIBOSS,
+			FIGHT,
+			EVENT,
+			START,
+			NONE
+		};
+
 		// Using Serializable allows us to embed a class with sub properties in the inspector.
 		[Serializable]
 		public class Count
@@ -48,6 +58,12 @@ namespace Completed
 			public float height;
 		}
 
+		[Serializable]
+		public struct MiniMapField
+		{
+			public RoomType rtype;
+			public bool explored;
+		}
 
 		public float maxHeight = 0;
 		public int columns = 0;
@@ -58,11 +74,19 @@ namespace Completed
 
 		int _coord(Vector2 coord)
 		{
-			return ((int)coord.y * columns + (int)coord.x);
+			return (_coord((int)coord.x, (int)coord.y));
 		}
 
 		int _coord(int x, int y)
 		{
+			if (x < 0)
+				x = 0;
+			if (y < 0)
+				y = 0;
+			if (x > columns)
+				x = columns;
+			if (y > rows)
+				y = rows;
 			return (x * columns + y);
 		}
 
@@ -103,13 +127,26 @@ namespace Completed
 						GameObject toInstantiate = floorTiles[(int)grid[_coord(x, y)].ftype];
 						Quaternion rotation = Quaternion.identity;
 						rotation.eulerAngles = new Vector3(45F, 0, 45F);
-						//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-						GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-						instance.transform.localRotation = rotation;
-						instance.transform.localScale = new Vector3(1, 1, grid[_coord(x, y)].height);
-						instance.transform.Translate(new Vector3(0, 0, -(grid[_coord(x, y)].height - 1) / 2.0F));
-						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-						instance.transform.SetParent (boardHolder);
+						for (int i = 0; i < (int)grid[_coord(x, y)].height + (grid[_coord(x, y)].height - (int)grid[_coord(x, y)].height > 0.0001 ? 1 : 0); ++i)
+						{
+							//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+							GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, -i), Quaternion.identity) as GameObject;
+							instance.transform.localRotation = rotation;
+
+							if ((int)grid[_coord(x, y)].height <= i)
+							{
+								float height = grid[_coord(x, y)].height - (int)grid[_coord(x, y)].height;
+
+								instance.transform.localScale = new Vector3(1, 1, height);
+								instance.transform.Translate(new Vector3(0, 0, -(height - 1) / 2.0F));
+							}
+							//Old version
+//							instance.transform.localScale = new Vector3(1, 1, grid[_coord(x, y)].height);
+//							instance.transform.Translate(new Vector3(0, 0, -(grid[_coord(x, y)].height - 1) / 2.0F));
+
+							//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+							instance.transform.SetParent(boardHolder);
+						}
 					}
 				}
 			}
@@ -293,10 +330,23 @@ namespace Completed
 
 		private void PopRiver(Vector2 coord, Vector2 last, Vector2 direction)
 		{
+			int riverRange = 4; // The range over which the river digs the field;
+
+			Vector2 rangeDirection = new Vector2(-(coord.y - last.y), coord.x - last.x);
 			if (coord.x == 0 || coord.y == 0 || coord.x == columns || coord.y == rows || grid[_coord(coord)].ftype == FloorType.WATER)
 				return;
 			grid[_coord(coord)].ftype = FloorType.WATER;
 			grid[_coord(coord)].height /= 2.0f;
+			if (rangeDirection.x != 0)
+			{
+				InterpolateLineX(coord, coord + riverRange * rangeDirection);
+				InterpolateLineX(coord, coord - riverRange * rangeDirection);
+			}
+			else
+			{
+				InterpolateLineY(coord, coord + riverRange * rangeDirection);
+				InterpolateLineY(coord, coord - riverRange * rangeDirection);
+			}
 			switch (Random.Range(0, 9))
 			{
 			case 0:
@@ -361,7 +411,7 @@ namespace Completed
 			{
 				Vector2 center;
 				Vector2 north, south, east, west;
-				float variance = ((b.x - d.x) / columns) * 1.5f;
+				float variance = ((b.x - d.x) / columns) * 1.0f;
 
 				center = new Vector2(d.x + ((int)(b.x - d.x) / 2), d.y + ((int)(b.y - d.y) / 2));
 				north = new Vector2(d.x + ((int)(b.x - d.x) / 2), b.y);
@@ -401,7 +451,7 @@ namespace Completed
 			{
 				for (int y = 0; y < rows; y++)
 				{
-					if (x > 0 && x < columns && y > 0 && y < rows)
+					if (x > 0 && x < columns && y > 0 && y < rows && grid[_coord(x, y)].ftype != FloorType.WATER)
 					{
 						if (grid[_coord(x, y)].height > heightForStone)
 						{
@@ -409,7 +459,7 @@ namespace Completed
 						}
 						else if (grid[_coord(x, y)].height > heightForGrass)
 						{
-							grid[_coord(x, y)].ftype = FloorType.GRASS;
+							grid[_coord(x, y)].ftype = FloorType.MOSS;
 						}
 						else
 						{
@@ -429,9 +479,9 @@ namespace Completed
 
 			InitMapGrid ();
 			PlasmaHeightField();
-			ColorByHeight();
 			PopRiver(new Vector2(12, 1), new Vector2(11, 1), new Vector2(0, 1));
 			PopRiver(new Vector2(33, 12), new Vector2(33, 12), new Vector2(-1, 0));
+			ColorByHeight();
 			BoardSetup ();
 		}
 	}
