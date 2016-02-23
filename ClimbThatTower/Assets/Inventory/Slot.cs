@@ -6,11 +6,12 @@ using System;
 public class Slot : MonoBehaviour, IDropHandler {
 
     public int _id;
-    public Inventory _inv;
+    private Inventory _inv;
 
     void Start ()
     {
-        this._inv = GameObject.Find("Inventory Panel").GetComponent<Inventory>();
+        print("ZIZI : " + this.gameObject.transform.parent.gameObject.name);
+        this._inv = this.gameObject.transform.parent.parent.gameObject.GetComponent<Inventory>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -18,7 +19,7 @@ public class Slot : MonoBehaviour, IDropHandler {
         ItemData dropppedItem = eventData.pointerDrag.GetComponent<ItemData>();
 //if (eventData.po)
         //Debug.LogError("TEST");
-        Debug.LogError(this._inv.name);
+        Debug.Log(this._inv.name);
 
         if (this._inv == null || !this._inv.name.Equals("Inventory Panel"))
         {
