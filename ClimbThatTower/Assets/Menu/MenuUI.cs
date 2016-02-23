@@ -14,12 +14,24 @@ public class MenuUI : MonoBehaviour
     public GameObject menu;
     private GameObject _menuInstantiated;
 
-    // Use this for initialization
     void Start()
     {
         this._menuInstantiated = Instantiate(this.menu, new Vector3(408, Screen.height - 8, 0), new Quaternion()) as GameObject;
         this._menuInstantiated.transform.SetParent(GameObject.Find("MenuUI").transform);
+    }
+
+    void OnEnable()
+    {
+        this._menuInstantiated.gameObject.SetActive(true);
+        for (int i = 0; i < this.playerChoices.Count; i++)
+            this.playerChoices[i].SetActive(true);
+    }
+
+    void OnDisable()
+    {
         this._menuInstantiated.gameObject.SetActive(false);
+        for (int i = 0; i < this.playerChoices.Count; i++)
+            this.playerChoices[i].SetActive(false);
     }
 
     private void changeCursor(PlayerChoice newPlayer)
@@ -149,20 +161,6 @@ public class MenuUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
-        {
-            this.isShowing = !this.isShowing;
-            for (int i = 0; i < this.playerChoices.Count; i++)
-                this.playerChoices[i].SetActive(this.isShowing);
-            this._menuInstantiated.SetActive(this.isShowing);
-        }
-        if (Input.GetButtonDown("Cancel"))
-        {
-            this.isShowing = false;
-            for (int i = 0; i < this.playerChoices.Count; i++)
-                this.playerChoices[i].SetActive(false);
-            this._menuInstantiated.SetActive(false);
-        }
         for (int i = 0; i < this.playerChoices.Count; i++)
         {
             if (this.playerChoices[i].hasClicked())
@@ -170,29 +168,16 @@ public class MenuUI : MonoBehaviour
         }
     }
 
-    private bool _isMouseMoving()
-    {
-        return (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("MouseY") != 0);
-    }
-
     void OnGUI()
     {
-        if (this.isShowing)
+        for (int i = 0; i < this.team.players.Count; i++)
         {
-            for (int i = 0; i < this.team.players.Count; i++)
-            {
-                if (this.playerChoices.Count <= i)
+            if (this.playerChoices.Count <= i)
                 {
                     this.playerChoices.Add(new PlayerChoice(this.playerChoice, 4, Screen.height - (i + 1) * PlayerChoice.getHeight() + 4, this.team.players[i]));
                     if (this.playerChoices.Count == 1)
                         this.changeCursor(this.playerChoices[i]);
                 }
-            }
         }
-    }
-
-    public void returnButton()
-    {
-        this.isShowing = !this.isShowing;
     }
 }
