@@ -19,7 +19,7 @@ public class Slot : MonoBehaviour, IDropHandler {
         ItemData dropppedItem = eventData.pointerDrag.GetComponent<ItemData>();
 //if (eventData.po)
         //Debug.LogError("TEST");
-        Debug.Log(this._inv.name);
+        //Debug.Log(this._inv.name);
 
         if (this._inv == null || !this._inv.name.Equals("Inventory Panel"))
         {
