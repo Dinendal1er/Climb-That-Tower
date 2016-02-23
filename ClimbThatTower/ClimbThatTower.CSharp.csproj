@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CharacterTurner.cs" />
     <Compile Include="Assets\Entity\AEntity.cs" />
     <Compile Include="Assets\Entity\APlayer.cs" />
     <Compile Include="Assets\Entity\Boss\ABoss.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Inventory\InventoryItems.cs" />
     <Compile Include="Assets\Inventory\ItemData.cs" />
     <Compile Include="Assets\Inventory\Slot.cs" />
+    <Compile Include="Assets\Inventory\ToolTip.cs" />
     <Compile Include="Assets\Item\ArmorBruiser.cs" />
     <Compile Include="Assets\Item\ArmorRogue.cs" />
     <Compile Include="Assets\Item\Colussator.cs" />
