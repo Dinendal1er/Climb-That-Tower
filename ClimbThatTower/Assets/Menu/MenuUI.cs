@@ -22,13 +22,15 @@ public class MenuUI : MonoBehaviour
 
     void OnEnable()
     {
-        this._menuInstantiated.gameObject.SetActive(true);
+		if (_menuInstantiated != null)
+			this._menuInstantiated.gameObject.SetActive(true);
         for (int i = 0; i < this.playerChoices.Count; i++)
             this.playerChoices[i].SetActive(true);
     }
 
     void OnDisable()
     {
+		if (_menuInstantiated != null)
         this._menuInstantiated.gameObject.SetActive(false);
         for (int i = 0; i < this.playerChoices.Count; i++)
             this.playerChoices[i].SetActive(false);
