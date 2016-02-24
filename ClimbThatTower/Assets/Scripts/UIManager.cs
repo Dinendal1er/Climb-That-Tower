@@ -3,14 +3,17 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour {
 
-	public GameObject menuUI;
+	public GameObject mainMenuUI;
 	public GameObject optionUI;
+	public GameObject menuUI;
 
-	private CanvasGroup menuGroup;
+	private CanvasGroup mainMenuGroup;
 	private CanvasGroup optionGroup;
+	private CanvasGroup menuGroup;
 
-	private bool menuToggle = true;
+	private bool mainMenuToggle = true;
 	private bool optionToggle = true;
+	private bool menuToggle = true;
 
 	private static UIManager instance = null;
 
@@ -38,20 +41,31 @@ public class UIManager : MonoBehaviour {
 	void Start () 
 	{
 
-		menuGroup = menuUI.GetComponent<CanvasGroup> ();
-		if (menuGroup == null)
-			Debug.LogError ("Missing MenuUI");
+		mainMenuGroup = mainMenuUI.GetComponent<CanvasGroup> ();
+		if (mainMenuGroup == null)
+			Debug.LogError ("Missing mainMenuUI");
 		optionGroup = optionUI.GetComponent<CanvasGroup> ();
 		if (optionGroup == null)
 			Debug.LogError ("Missing OptionUI");
+		menuGroup = menuUI.GetComponent<CanvasGroup> ();
+		if (optionGroup == null)
+			Debug.LogError ("Missing MenuUI");
 		OptionToggle ();
+		MenuToggle ();
 	}
 
-	public void MenuToggle()
+	public void MenuToggle ()
 	{
 		menuToggle = !menuToggle;
 		menuGroup.alpha = (menuToggle == true) ? 1f : 0f;
-		menuUI.SetActive (menuToggle);
+		menuUI.SetActive(menuToggle);
+	}
+
+	public void MainMenuToggle()
+	{
+		mainMenuToggle = !mainMenuToggle;
+		mainMenuGroup.alpha = (mainMenuToggle == true) ? 1f : 0f;
+		mainMenuUI.SetActive (mainMenuToggle);
 	}
 
 	public void OptionToggle()
