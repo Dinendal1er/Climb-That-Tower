@@ -9,10 +9,16 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+
+	void OverWorldBehaviour()
+	{
+		if (Input.GetButtonDown ("Inventory"))
+		UIManager.getInstance ().MenuToggle ();
+	}
+
 	// Update is called once per frame
 	void Update () {
-		if (inFight == false && Input.GetButtonDown ("Inventory"))
-			UIManager.getInstance ().MenuToggle ();
+		if (inFight == false)
+			OverWorldBehaviour ();
 	}
 }
