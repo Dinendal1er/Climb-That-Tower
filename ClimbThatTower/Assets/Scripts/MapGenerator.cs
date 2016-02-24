@@ -103,13 +103,23 @@ namespace Completed
 						GameObject toInstantiate = floorTiles[(int)grid[_coord(x, y)].ftype];
 						Quaternion rotation = Quaternion.identity;
 						rotation.eulerAngles = new Vector3(45F, 0, 45F);
-						//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-						GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-						instance.transform.localRotation = rotation;
-						instance.transform.localScale = new Vector3(1, 1, grid[_coord(x, y)].height);
-						instance.transform.Translate(new Vector3(0, 0, -(grid[_coord(x, y)].height - 1) / 2.0F));
-						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-						instance.transform.SetParent (boardHolder);
+						for (int i = 0; i < (int)grid[_coord(x, y)].height + (grid[_coord(x, y)].height - (int)grid[_coord(x, y)].height > 0.0001 ? 1 : 0); ++i)
+						{
+							//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+							GameObject instance = Instantiate(toInstantiate, rotation * new Vector3(x, y, -i), Quaternion.identity) as GameObject;
+							instance.transform.localRotation = rotation;
+
+							if ((int)grid[_coord(x, y)].height <= i)
+							{
+								float height = grid[_coord(x, y)].height - (int)grid[_coord(x, y)].height;
+
+								instance.transform.localScale = new Vector3(1, 1, height);
+								instance.transform.Translate(new Vector3(0, 0, -(height - 1) / 2.0F));
+							}
+
+							//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+							instance.transform.SetParent(boardHolder);
+						}
 					}
 				}
 			}
@@ -426,12 +436,11 @@ namespace Completed
 			columns = 34;
 			rows = 34;
 			maxHeight = 10F;
-
-			InitMapGrid ();
-			PlasmaHeightField();
-			ColorByHeight();
-			PopRiver(new Vector2(12, 1), new Vector2(11, 1), new Vector2(0, 1));
-			PopRiver(new Vector2(33, 12), new Vector2(33, 12), new Vector2(-1, 0));
+			InitMapGrid();
+//			PlasmaHeightField();
+//			PopRiver(new Vector2(12, 1), new Vector2(11, 1), new Vector2(0, 1));
+//			PopRiver(new Vector2(33, 12), new Vector2(33, 12), new Vector2(-1, 0));
+//			ColorByHeight();
 			BoardSetup ();
 		}
 	}
