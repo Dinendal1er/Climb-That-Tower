@@ -43,7 +43,7 @@ public class OptionUIManager : MonoBehaviour {
 		if (UIManager.getInstance () != null) 
 		{
 			UIManager.getInstance ().OptionToggle ();
-			UIManager.getInstance ().MainMenuToggle ();
+			UIManager.getInstance ().MenuToggle ();
 		}
 	}
 }

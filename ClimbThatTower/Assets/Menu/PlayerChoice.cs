@@ -6,11 +6,6 @@ using UnityEngine.UI;
 public class PlayerChoice
 {
     private GameObject _obj;
-	public GameObject Obj {
-		get {
-			return this._obj;
-		}
-	}
     private APlayer _player;
     private HasClicked _button;
 

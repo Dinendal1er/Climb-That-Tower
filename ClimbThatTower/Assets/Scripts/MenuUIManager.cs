@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class MenuUIManager : MonoBehaviour 
 {
@@ -17,17 +16,10 @@ public class MenuUIManager : MonoBehaviour
 	{
 		if (UIManager.getInstance () != null) 
 		{
-			UIManager.getInstance ().MainMenuToggle ();
+			UIManager.getInstance ().MenuToggle ();
 			UIManager.getInstance ().OptionToggle ();
 		}
 		
-	}
-
-	public void Play()
-	{
-		UIManager.getInstance ().MainMenuToggle ();
-		SceneManager.LoadScene ("AfterMenu", LoadSceneMode.Additive);
-		Destroy (GameObject.Find ("Main Camera"));
 	}
 
 }

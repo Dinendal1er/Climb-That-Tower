@@ -37,21 +37,20 @@ public class PlayerMove : MonoBehaviour
 		Hc = (moveHorizontal > 0) ? 0.5f : (moveHorizontal < 0)  ? -0.5f : 0;
 		Vc = (moveVertical > 0) ? 0.65f : (moveVertical < 0) ? -0.65f : 0;
 
+
+		//Start raycasting
+		//Start point to raycasting.
 		Vector3 start = transform.position;
-		//Vector3 startL = transform.position + (rot * new Vector3(0.5f, 0f, 0f));
+		Vector3 startL = transform.position + (rot * new Vector3(0.5f, 0f, 0f));
 
 		//End point of raycasting.
-		Vector3 end;
-		end = start + (rot * new Vector3(Hc, 0f, 0f)) + new Vector3(0,Vc,0f);
+		//Vector3 end = (start + move);
+		Vector3 end = start + (rot * new Vector3(Hc, Vc, 0f));
+		Vector3 endL = startL + (rot * new Vector3(Hc, Vc, 0f));
 
-		//Vector3 endL = startL + (rot * new Vector3(Hc, Vc, 0f));
-		Debug.DrawLine(start, end, Color.cyan);
 		hit = Physics.Linecast (start, end);
-		//Debug.DrawRay( start, end, Color.cyan );
-		//hitL = Physics.Linecast (startL, endL);
-		//Debug.DrawRay( startL, endL, Color.cyan );
-		if (hit == true) //|| (hitL == true && moveHorizontal == 0)) 
-		{
+		hitL = Physics.Linecast (startL, endL);
+		if (hit == true || (hitL == true && moveHorizontal == 0)) {
 			Debug.Log ("Collision");
 			//rotation * new Vector3 (moveVertical, moveHorizontal, 0);
 		} 

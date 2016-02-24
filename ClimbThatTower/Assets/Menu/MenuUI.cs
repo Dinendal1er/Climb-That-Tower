@@ -16,37 +16,12 @@ public class MenuUI : MonoBehaviour
 
     void Start()
     {
-        //this._menuInstantiated = Instantiate(this.menu, new Vector3(408, Screen.height - 8, 0), new Quaternion()) as GameObject;
-        //this._menuInstantiated.transform.SetParent(GameObject.Find("MenuUI").transform);
+        this._menuInstantiated = Instantiate(this.menu, new Vector3(408, Screen.height - 8, 0), new Quaternion()) as GameObject;
+        this._menuInstantiated.transform.SetParent(GameObject.Find("MenuUI").transform);
     }
 
-	void OnEnable()
-	{
-		this._menuInstantiated = Instantiate(this.menu, new Vector3(408, Screen.height - 8, 0), new Quaternion()) as GameObject;
-		this._menuInstantiated.transform.SetParent(GameObject.Find("MenuUI").transform);
-		for (int i = 0; i < this.team.players.Count; i++)
-		{
-			if (this.playerChoices.Count <= i)
-			{
-				this.playerChoices.Add(new PlayerChoice(this.playerChoice, 4, Screen.height - (i + 1) * PlayerChoice.getHeight() + 4, this.team.players[i]));
-				if (this.playerChoices.Count == 1)
-					this.changeCursor(this.playerChoices[i]);
-			}
-		}
-	}
-
-	void OnDisable()
-	{
-		Destroy (this._menuInstantiated);
-		foreach (PlayerChoice a in playerChoices) 
-		{
-			Destroy (a.Obj);
-		}
-		playerChoices.Clear ();
-	}
-    /*void OnEnable()
+    void OnEnable()
     {
-		if (_menuInstantiated != null)
         this._menuInstantiated.gameObject.SetActive(true);
         for (int i = 0; i < this.playerChoices.Count; i++)
             this.playerChoices[i].SetActive(true);
@@ -57,7 +32,7 @@ public class MenuUI : MonoBehaviour
         this._menuInstantiated.gameObject.SetActive(false);
         for (int i = 0; i < this.playerChoices.Count; i++)
             this.playerChoices[i].SetActive(false);
-    }*/
+    }
 
     private void changeCursor(PlayerChoice newPlayer)
     {
@@ -193,7 +168,7 @@ public class MenuUI : MonoBehaviour
         }
     }
 
-   /* void OnGUI()
+    void OnGUI()
     {
         for (int i = 0; i < this.team.players.Count; i++)
         {
@@ -204,5 +179,5 @@ public class MenuUI : MonoBehaviour
                         this.changeCursor(this.playerChoices[i]);
                 }
         }
-    }*/
+    }
 }
