@@ -96,9 +96,11 @@
      <Compile Include="Assets\Menu\HasClicked.cs" />
      <Compile Include="Assets\Menu\MenuUI.cs" />
      <Compile Include="Assets\Menu\PlayerChoice.cs" />
+     <Compile Include="Assets\Scripts\Entry.cs" />
      <Compile Include="Assets\Scripts\FieldUnit.cs" />
      <Compile Include="Assets\Scripts\MapGenerator.cs" />
      <Compile Include="Assets\Scripts\MenuUIManager.cs" />
+     <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\OptionManager.cs" />
      <Compile Include="Assets\Scripts\OptionUIManager.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
@@ -117,7 +119,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>C:/Users/Paul/Documents/GitHub/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
+ <HintPath>C:/Users/coudra_c/Documents/Climb-That-Tower/ClimbThatTower/Assets/Plugins/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
