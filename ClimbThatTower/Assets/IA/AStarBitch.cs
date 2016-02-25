@@ -55,7 +55,6 @@ public class AStarBitch
         List<AStarBitch.AStarNode> ret = new List<AStarBitch.AStarNode>();
         List<AStarBitch.AStarNode> arround;
         bool sucess = false;
-
         if (_map == null || start > hauteur * largeur || end > hauteur * largeur || start < 0 || end < 0)
             return (new List<AStarNode>());
         _map[start].cout = 0;
@@ -66,12 +65,12 @@ public class AStarBitch
         {
             openList = openList.OrderBy(x => x.poids).ToList();
             AStarNode cur = openList.First();
-            openList.RemoveAt(0);
             if (cur.pos == end)
             {
                 sucess = true;
                 break;
             }
+            openList.RemoveAt(0);
             closeList.Add(cur);
             arround = getNodesAround(_map, cur);
             while (arround.Count() != 0)
