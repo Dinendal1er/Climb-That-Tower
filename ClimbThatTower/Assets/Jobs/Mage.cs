@@ -24,7 +24,7 @@ public class Mage : APlayer
         this.MaxExp = 100;
         this.MaxHp = 30;
         this.MaxMp = 30;
-        this.Mp = 30;
+        this.Mp = 25;
         this.Movement = 5;
         this.Name = name;
         this.Precision = 45;

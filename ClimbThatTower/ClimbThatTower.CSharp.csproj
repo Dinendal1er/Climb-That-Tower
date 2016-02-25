@@ -76,7 +76,9 @@
     <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
     <Compile Include="Assets\Entity\Mob\Orc.cs" />
     <Compile Include="Assets\Entity\Team.cs" />
-    <Compile Include="Assets\IA\IAClass.cs" />
+    <Compile Include="Assets\EntityFollow.cs" />
+    <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\IA\AStarBitch.cs" />
     <Compile Include="Assets\Inventory\InventoryItems.cs" />
     <Compile Include="Assets\Inventory\ItemData.cs" />
     <Compile Include="Assets\Inventory\Slot.cs" />
@@ -116,9 +118,11 @@
     <Compile Include="Assets\Menu\HasClicked.cs" />
     <Compile Include="Assets\Menu\MenuUI.cs" />
     <Compile Include="Assets\Menu\PlayerChoice.cs" />
+    <Compile Include="Assets\Scripts\Entry.cs" />
     <Compile Include="Assets\Scripts\FieldUnit.cs" />
     <Compile Include="Assets\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Scripts\MenuUIManager.cs" />
+    <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\OptionManager.cs" />
     <Compile Include="Assets\Scripts\OptionUIManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />

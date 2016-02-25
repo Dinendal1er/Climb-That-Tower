@@ -5,11 +5,11 @@ public class Thief : APlayer
 {
 	public Thief(string name)
     {
-        this.Job = "Thief";
-        this.Agility = 1;
+        this.Job = "Voleur";
+        this.Agility = 4;
         this.Ap = 1;
-        this.Defense = 1;
-        this.Exp = 0;
+        this.Defense = 2;
+        this.Exp = 33;
         this.Hp = 30;
         this.Intel = 1;
         this.Luck = 1;
@@ -22,11 +22,11 @@ public class Thief : APlayer
         this.Mp = 30;
         this.Movement = 5;
         this.Name = name;
-        this.Precision = 45;
+        this.Precision = 30;
         this.Resistance = 0;
-        this.Speed = 1;
-        this.Stamina = 1;
-        this.Strenght = 1;
+        this.Speed = 5;
+        this.Stamina = 4;
+        this.Strenght = 2;
 
         //TODO
         this.Equipment = new EquipmentSet(new FootBruiser(), new HeadBruiser(), new HandsBruiser(), new Colussator(), new PantsBruiser(), new ArmorBruiser());

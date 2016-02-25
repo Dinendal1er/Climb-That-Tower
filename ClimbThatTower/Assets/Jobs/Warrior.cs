@@ -5,28 +5,28 @@ public class Warrior : APlayer
 {
 	public Warrior(string name)
     {
-        this.Job = "Warrior";
+        this.Job = "Guerrier";
         this.Agility = 1;
         this.Ap = 1;
-        this.Defense = 1;
+        this.Defense = 2;
         this.Exp = 0;
-        this.Hp = 30;
-        this.Intel = 1;
-        this.Luck = 1;
+        this.Hp = 18;
+        this.Intel = 0;
+        this.Luck = 0;
         this.Lvl = 1;
-        this.MagicResistance = 1;
+        this.MagicResistance = 3;
         this.MaxActionPoint = 2;
         this.MaxExp = 100;
         this.MaxHp = 30;
-        this.MaxMp = 30;
-        this.Mp = 30;
+        this.MaxMp = 0;
+        this.Mp = 0;
         this.Movement = 5;
         this.Name = name;
-        this.Precision = 45;
+        this.Precision = 20;
         this.Resistance = 0;
-        this.Speed = 1;
+        this.Speed = 2;
         this.Stamina = 1;
-        this.Strenght = 1;
+        this.Strenght = 2;
 
         //TODO
         this.Equipment = new EquipmentSet(new FootBruiser(), new HeadBruiser(), new HandsBruiser(), new Colussator(), new PantsBruiser(), new ArmorBruiser());
