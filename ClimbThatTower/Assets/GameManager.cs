@@ -81,6 +81,15 @@ public class GameManager : MonoBehaviour {
 						if (t != null) {
 							Debug.Log ("Ici");
 							foreach (AStarBitch.AStarNode k in t) {
+								Debug.Log (grid [k.pos].height);
+								RaycastHit hitInfo2 = new RaycastHit ();
+
+								Vector3 s = rotation * new Vector3 (k.x, k.y, -(grid [k.pos].height + 1));
+								Vector3 e = s + (rotation) * new Vector3 (0F, 0f, 10f);
+								if (Physics.Linecast (s, e, out hitInfo2)) 
+								{
+									hitInfo2.collider.gameObject.GetComponent<Renderer> ().material = Resources.Load ("Materials/" + (this.name.Split ('(')) [0] + "hl") as Material;
+								}
 								Debug.Log ("Pos = " + k.pos);
 							}
 						}
