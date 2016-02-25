@@ -43,6 +43,7 @@ public class MapGenerator : MonoBehaviour
 	{
 		public FloorType ftype;
 		public float height;
+		public int index;
 	}
 
 
@@ -88,6 +89,7 @@ public class MapGenerator : MonoBehaviour
 			for (int y = 0; y < rows + 1; ++y)
 			{
 				grid[_coord(x, y)] = new FieldInfo();
+				grid[_coord(x, y)].index = _coord(x, y);
 				if (x == 0 || x == columns || y == 0 || y == rows)
 				{
 					grid[_coord(x, y)].ftype = FloorType.BRICKS2;
@@ -141,6 +143,7 @@ public class MapGenerator : MonoBehaviour
 								instance.GetComponent<Entry>().board.transform.GetChild(w).gameObject.SetActive(false);
 							}
 						}
+						instance.GetComponent<FieldUnit>().info = grid[_coord(x, y)];
 						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 						instance.transform.SetParent(boardHolder);
 					}

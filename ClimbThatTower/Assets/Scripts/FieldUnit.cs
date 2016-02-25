@@ -3,6 +3,8 @@ using System.Collections;
 
 public class FieldUnit : MonoBehaviour {
 
+	public MapGenerator.FieldInfo info;
+
 	// Use this for initialization
 	void Start () {
 	
