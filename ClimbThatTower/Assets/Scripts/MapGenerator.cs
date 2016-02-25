@@ -513,6 +513,8 @@ public class MapGenerator : MonoBehaviour
 		}
 		grid[_coord(columns - 1, rows - 1)].ftype = FloorType.STONE2;
 		grid[_coord(columns - 1, rows - 1)].height = 1F;
+		grid[_coord(1, 1)].ftype = FloorType.SAND;
+		grid[_coord(1, 1)].height = 1F;
 		return (BoardSetup());
 	}
 
