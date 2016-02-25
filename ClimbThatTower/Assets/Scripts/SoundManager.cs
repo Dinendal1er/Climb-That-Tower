@@ -52,7 +52,12 @@ public class SoundManager : MonoBehaviour {
 			if (!string.IsNullOrEmpty(EffectName[i]) && Effects[i] != null)
 				Effect.Add (EffectName [i], Effects [i]);
 		}
-		
+		if (OptionManager.getInstance () != null) 
+		{
+			MusicPlayer.volume = OptionManager.getInstance ().getMusicLevel ();
+			EffectPlayer.volume = OptionManager.getInstance ().getEffectLevel ();
+		}
+			
 	
 	}
 

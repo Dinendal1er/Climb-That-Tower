@@ -11,11 +11,29 @@ public class UIManager : MonoBehaviour {
 	private CanvasGroup mainMenuGroup;
 	private CanvasGroup optionGroup;
 
-	private bool menuToggle = true;
-	private bool mainMenuToggle = true;
-	private bool optionToggle = true;
+	private bool _menuToggle = true;
+	private bool _mainMenuToggle = true;
+	private bool _optionToggle = true;
 
 	private static UIManager instance = null;
+
+	public bool menuToggle {
+		get {
+			return this._menuToggle;
+		}
+	}
+
+	public bool mainMenuToggle {
+		get {
+			return this._mainMenuToggle;
+		}
+	}
+
+	public bool optionToggle {
+		get {
+			return this._optionToggle;
+		}
+	}
 
 	static public UIManager getInstance()
 	{
@@ -56,22 +74,22 @@ public class UIManager : MonoBehaviour {
 
 	public void MenuToggle()
 	{
-		menuToggle = !menuToggle;
-		menuGroup.alpha = (menuToggle == true) ? 1f : 0f;
-		menuUI.SetActive (menuToggle);
+		_menuToggle = !_menuToggle;
+		menuGroup.alpha = (_menuToggle == true) ? 1f : 0f;
+		menuUI.SetActive (_menuToggle);
 	}
 
 	public void OptionToggle()
 	{
-		optionToggle = !optionToggle;
-		optionGroup.alpha = (optionToggle == true) ? 1f : 0f;
-		optionUI.SetActive (optionToggle);
+		_optionToggle = !_optionToggle;
+		optionGroup.alpha = (_optionToggle == true) ? 1f : 0f;
+		optionUI.SetActive (_optionToggle);
 	}
 
 	public void MainMenuToggle()
 	{
-		mainMenuToggle = !mainMenuToggle;
-		mainMenuGroup.alpha = (mainMenuToggle == true) ? 1f : 0f;
-		mainMenuUI.SetActive (mainMenuToggle);
+		_mainMenuToggle = !_mainMenuToggle;
+		mainMenuGroup.alpha = (_mainMenuToggle == true) ? 1f : 0f;
+		mainMenuUI.SetActive (_mainMenuToggle);
 	}
 }
