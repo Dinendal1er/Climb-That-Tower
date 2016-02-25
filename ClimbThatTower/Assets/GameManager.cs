@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	private bool inFight = false;
 	private bool placed = false;
+	private MapGenerator.FieldInfo[] grid;
 
 	[SerializeField]
 	private Movement player;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour {
 		inFight = true;
 		player.GetComponent<Movement> ().enabled = false;
 		enter.EnterBattleMode ();
+		grid = enter.grid;
 		player.gameObject.SetActive (false);
 
 	}
@@ -62,22 +64,26 @@ public class GameManager : MonoBehaviour {
 					start = hitInfo.transform.position;
 					end = start + (rotation * new Vector3 (0f, 0f, -2f));
 					if (!Physics.Linecast (start, end)) {
-						
+
+						if (GameObject.Find ("stone2") != null)
+							Debug.Log ("OKKKKK");
+
 						/*Vector3 Finish = Quaternion.Inverse (rotation) * hitInfo.collider.transform.position;
 						Debug.Log ((int)Finish.x + " " + (int)Finish.y);*/
 						int y = 34; //GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().columns;
 						int x = 34; //GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().rows;
-						var map = GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().grid;
+						//var map = GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().grid;
 						int a = hit.collider.gameObject.GetComponent<FieldUnit> ().info.index; //(int)Begin.y * y + (int)Begin.x;
 						int b = hitInfo.collider.gameObject.GetComponent<FieldUnit> ().info.index; //(int)Finish.y * y + (int)Finish.x;
 						Debug.Log ("Limite Y = " + y + " Limite X = " + x + " pos a = " + a + "pos b= " + b);
-						List<AStarBitch.AStarNode> t = AStarBitch.Astarfct (map, y, x, a, b);
-						if (t != null)
-						foreach (AStarBitch.AStarNode k in t) 
-						{
-							Debug.Log ("Pos = " + k.pos);
+						Debug.Log (grid.Length);
+						List<AStarBitch.AStarNode> t = AStarBitch.Astarfct (grid, y, x, a, b);
+						if (t != null) {
+							Debug.Log ("Ici");
+							foreach (AStarBitch.AStarNode k in t) {
+								Debug.Log ("Pos = " + k.pos);
+							}
 						}
-						Debug.Log ("LY = " + y + " LX = " + x + " a = " + a + " b= " + b);
 					}
 				}
 			}
