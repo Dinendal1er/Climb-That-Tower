@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	private bool inFight = false;
 	private bool placed = false;
+	private bool inMovement = false;
 	private MapGenerator.FieldInfo[] grid;
 
 	[SerializeField]
@@ -23,7 +24,8 @@ public class GameManager : MonoBehaviour {
 		enter.EnterBattleMode ();
 		grid = enter.grid;
 		player.gameObject.SetActive (false);
-
+		GameObject.Find ("Main Camera").GetComponent<CombatModeCamera> ().enabled = true;
+		GameObject.Find ("Main Camera").GetComponent<EntityFollow> ().enabled = false;
 	}
 
 	void OverWorldBehaviour()
@@ -40,10 +42,23 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	IEnumerator MoveCharacter(List<RaycastHit> hitInfos)
+	{
+		Quaternion rotation = Quaternion.identity;
+		rotation.eulerAngles = new Vector3 (45F, 0, 45F);
+		inMovement = true;
+
+		foreach (RaycastHit hitInfo in hitInfos) {
+			player.transform.position = hitInfo.transform.position + (rotation * new Vector3 (0f, 0f, -2.32f + ((1 - hitInfo.transform.localScale.z) / 2)));
+			yield return new WaitForSeconds(0.5f);
+		}
+		inMovement = false;
+	}
+
 	void FightBehaviour()
 	{
 		//Temporaire pour le  déplacement.
-		if (Input.GetButtonDown ("Submit")) {
+		if (Input.GetMouseButtonDown (0) && !inMovement) {
 			RaycastHit hit;
 
 			Quaternion rotation = Quaternion.identity;
@@ -54,32 +69,22 @@ public class GameManager : MonoBehaviour {
 			Debug.DrawLine (start, end, Color.cyan);
 			if (Physics.Linecast (start, end, out hit)) 
 			{
-				/*Vector3 Begin = hit.collider.transform.position;
-				Begin = Quaternion.Inverse (rotation) * Begin;
-				Debug.Log ((int)Begin.x + " " + (int)Begin.y + " " + Begin.z);*/
-			
 				RaycastHit hitInfo = new RaycastHit ();
 
 				if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo) && !hitInfo.transform.CompareTag ("Bounds")) {
 					start = hitInfo.transform.position;
 					end = start + (rotation * new Vector3 (0f, 0f, -2f));
 					if (!Physics.Linecast (start, end)) {
-
-						if (GameObject.Find ("stone2") != null)
-							Debug.Log ("OKKKKK");
-
-						/*Vector3 Finish = Quaternion.Inverse (rotation) * hitInfo.collider.transform.position;
-						Debug.Log ((int)Finish.x + " " + (int)Finish.y);*/
-						int y = 34; //GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().columns;
-						int x = 34; //GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().rows;
-						//var map = GameObject.Find ("MapGenerator").GetComponent<MapGenerator> ().grid;
-						int a = hit.collider.gameObject.GetComponent<FieldUnit> ().info.index; //(int)Begin.y * y + (int)Begin.x;
-						int b = hitInfo.collider.gameObject.GetComponent<FieldUnit> ().info.index; //(int)Finish.y * y + (int)Finish.x;
+						
+						int y = 34; 
+						int x = 34; 
+						int a = hit.collider.gameObject.GetComponent<FieldUnit> ().info.index;
+						int b = hitInfo.collider.gameObject.GetComponent<FieldUnit> ().info.index; 
 						Debug.Log ("Limite Y = " + y + " Limite X = " + x + " pos a = " + a + "pos b= " + b);
 						Debug.Log (grid.Length);
 						List<AStarBitch.AStarNode> t = AStarBitch.Astarfct (grid, y, x, a, b);
 						if (t != null) {
-							Debug.Log ("Ici");
+							List<RaycastHit> list = new List<RaycastHit> ();
 							foreach (AStarBitch.AStarNode k in t) {
 								Debug.Log (grid [k.pos].height);
 								RaycastHit hitInfo2 = new RaycastHit ();
@@ -88,10 +93,12 @@ public class GameManager : MonoBehaviour {
 								Vector3 e = s + (rotation) * new Vector3 (0F, 0f, 10f);
 								if (Physics.Linecast (s, e, out hitInfo2)) 
 								{
-									hitInfo2.collider.gameObject.GetComponent<Renderer> ().material = Resources.Load ("Materials/" + (this.name.Split ('(')) [0] + "hl") as Material;
+									list.Add (hitInfo2);
+									//hitInfo2.collider.gameObject.GetComponent<Renderer> ().material = Resources.Load ("Materials/" + (this.name.Split ('(')) [0] + "hl") as Material;
 								}
-								Debug.Log ("Pos = " + k.pos);
 							}
+							list.Reverse ();
+							StartCoroutine (MoveCharacter (list));
 						}
 					}
 				}
