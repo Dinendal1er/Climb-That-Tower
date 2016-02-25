@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Entry : MonoBehaviour
 {
 	public GameObject board;
+	public MapGenerator.FieldInfo[] grid;
 
 	// Use this for initialization
 	void Start ()

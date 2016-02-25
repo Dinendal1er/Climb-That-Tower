@@ -55,8 +55,9 @@
      <Compile Include="Assets\Entity\Mob\Gobelin.cs" />
      <Compile Include="Assets\Entity\Mob\Orc.cs" />
      <Compile Include="Assets\Entity\Team.cs" />
+     <Compile Include="Assets\EntityFollow.cs" />
      <Compile Include="Assets\GameManager.cs" />
-     <Compile Include="Assets\IA\IAClass.cs" />
+     <Compile Include="Assets\IA\AStarBitch.cs" />
      <Compile Include="Assets\Inventory\InventoryItems.cs" />
      <Compile Include="Assets\Inventory\ItemData.cs" />
      <Compile Include="Assets\Inventory\Slot.cs" />

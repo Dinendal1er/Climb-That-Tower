@@ -142,6 +142,7 @@ public class MapGenerator : MonoBehaviour
 							{
 								instance.GetComponent<Entry>().board.transform.GetChild(w).gameObject.SetActive(false);
 							}
+							instance.GetComponent<Entry>().grid = grid;
 						}
 						instance.GetComponent<FieldUnit>().info = grid[_coord(x, y)];
 						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
