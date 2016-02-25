@@ -135,14 +135,17 @@ public class MapGenerator : MonoBehaviour
 
 						if (grid[_coord(x, y)].ftype == FloorType.STONE2)
 						{
-							FieldInfo[] tmp = grid;
 							instance.AddComponent<Entry>();
 							instance.GetComponent<Entry>().board = GenerateBoard(34, 34);
 							for (int w = 0; w < instance.GetComponent<Entry>().board.transform.GetChildCount(); ++w)
 							{
 								instance.GetComponent<Entry>().board.transform.GetChild(w).gameObject.SetActive(false);
 							}
-							instance.GetComponent<Entry>().grid = grid;
+							instance.GetComponent<Entry>().grid = new FieldInfo[(columns + 1) * (rows + 1)];
+							for (int k = 0; k < (columns + 1) * (rows + 1); ++k)
+							{
+								instance.GetComponent<Entry>().grid[k] = grid[k];
+							}
 						}
 						instance.GetComponent<FieldUnit>().info = grid[_coord(x, y)];
 						//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
