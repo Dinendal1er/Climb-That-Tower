@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class AStarBitch
 {
@@ -57,15 +58,15 @@ public class AStarBitch
 
         if (_map == null || start > hauteur * largeur || end > hauteur * largeur || start < 0 || end < 0)
             return (new List<AStarNode>());
-
         _map[start].cout = 0;
         _map[start].cout_left = calcHeuristic(start, end, largeur, hauteur);
         _map[start].poids = _map[start].cout_left;
         openList.Add(_map[start]);
-        while (openList.Count == 0)
+        while (openList.Count != 0)
         {
             openList = openList.OrderBy(x => x.poids).ToList();
             AStarNode cur = openList.First();
+            openList.RemoveAt(0);
             if (cur.pos == end)
             {
                 sucess = true;
@@ -101,6 +102,7 @@ public class AStarBitch
                     }
                 }
                 arround.RemoveAt(0);
+
             }
         }
         if (!sucess)
@@ -118,9 +120,9 @@ public class AStarBitch
     private int calcHeuristic(int start, int end, int largeur_map, int hauteur_map)
     {
         int x_start = start % largeur_map;
-        int y_start = start / hauteur_map;
+        int y_start = start / largeur_map;
         int x_end = end % largeur_map;
-        int y_end = end / hauteur_map;
+        int y_end = end / largeur_map;
         int distance = Math.Abs(x_start - x_end) + Math.Abs(y_start - y_end);
         return distance;
     }
@@ -132,7 +134,7 @@ public class AStarBitch
         int i = 0;
         while (i < size)
         {
-            ret.Add(new AStarBitch.AStarNode(i, isWalkable((int)map[i].ftype), i % (hauteur - 1), i / (hauteur - 1)));
+            ret.Add(new AStarBitch.AStarNode(i, isWalkable((int)map[i].ftype), i % (largeur), i / (largeur)));
             i++;
         }
         return ret;
@@ -140,6 +142,7 @@ public class AStarBitch
 
     private bool isWalkable(int type)
     {
+        return true;
         if (type == 1 || type == 2)
             return true;
         return false;
