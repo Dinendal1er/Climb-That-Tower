@@ -101,7 +101,6 @@ public class AStarBitch
                     }
                 }
                 arround.RemoveAt(0);
-
             }
         }
         if (!sucess)
