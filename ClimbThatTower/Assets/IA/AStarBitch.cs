@@ -15,10 +15,10 @@ public class AStarBitch
         public bool walkable;
         public int x;
         public int y;
-        public int cout_left;
-        public int cout;
+        public float cout_left;
+        public float cout;
         public int parent;
-        public int poids;
+        public float poids;   
 
         public AStarNode(int pos, bool w, int x, int y, int h = 0, int c = 0, int p = -1, int po = 0)
         {
@@ -49,10 +49,13 @@ public class AStarBitch
 
     private List<AStarBitch.AStarNode> aStar(List<AStarBitch.AStarNode> _map, int hauteur, int largeur, int start, int end)
     {
-
+        // openList contain nodes not analized yet
         List<AStarBitch.AStarNode> openList = new List<AStarBitch.AStarNode>();
+        //  closeList contain nodes already analized    
         List<AStarBitch.AStarNode> closeList = new List<AStarBitch.AStarNode>();
+        // ret is the list we are gonna return
         List<AStarBitch.AStarNode> ret = new List<AStarBitch.AStarNode>();
+        // arrount is a temporary listing of nodes directly arround a specific node. filled with getNodesAround fct
         List<AStarBitch.AStarNode> arround;
         bool sucess = false;
         if (_map == null || start > hauteur * largeur || end > hauteur * largeur || start < 0 || end < 0)
@@ -76,22 +79,26 @@ public class AStarBitch
             while (arround.Count() != 0)
             {
                 AStarNode cur2 = arround.First();
+                // ignore the node if it is an obstacle or if it is in the close list
                 if (!cur2.walkable || closeList.Exists(x => x.pos == cur2.pos))
                 {
                     arround.RemoveAt(0);
                     continue;
                 }
+                // if the node is not in the oppen list (the close neither), put it in and calcul its parameters
                 if (!openList.Exists(x => x.pos == cur2.pos))
                 {
                     cur2.parent = cur.pos;
-                    cur2.cout = cur.cout + 1;
+                    cur2.cout = cur.cout + (float) 1;
                     cur2.cout_left = calcHeuristic(cur2.pos, end, larg, haut);
-                    cur2.poids = cur2.cout + cur2.cout;
+                    cur2.poids = cur2.cout + cur2.cout_left;
                     openList.Add(cur2);
                 }
+                // if the node is already in the open list, calcul poids
                 else
                 {
-                    int tmppoinds = cur.cout + 1 + calcHeuristic(cur2.pos, end, larg, haut);
+                    float tmppoinds = cur.cout + (float) 1 + calcHeuristic(cur2.pos, end, larg, haut);
+                    // if the new poids is under the ancient, replace the parent and recalcul all parameters
                     if (tmppoinds < cur2.poids)
                     {
                         cur2.parent = cur.pos;
@@ -115,13 +122,13 @@ public class AStarBitch
         return ret;
     }
 
-    private int calcHeuristic(int start, int end, int largeur_map, int hauteur_map)
+    private float calcHeuristic(int start, int end, int largeur_map, int hauteur_map)
     {
         int x_start = start % largeur_map;
         int y_start = start / largeur_map;
         int x_end = end % largeur_map;
         int y_end = end / largeur_map;
-        int distance = Math.Abs(x_start - x_end) + Math.Abs(y_start - y_end);
+        float distance = (float) Math.Sqrt(Math.Pow(Math.Abs(x_start - x_end), 2) + Math.Pow(Math.Abs(y_start - y_end), 2));
         return distance;
     }
 
